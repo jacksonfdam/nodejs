@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test>
+    <Produtos>
+        <produto>Produto 01</produto>
+        <produto>Produto 02</produto>
+        <produto>Produto 03</produto>
+    </Produtos>
+    <categorias>
+        <categoria>Moda</categoria>
+        <categoria>Diversao</categoria>
+        <categoria>Entretenimento</categoria>
+    </categorias>
+</test>

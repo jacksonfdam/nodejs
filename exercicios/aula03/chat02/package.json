@@ -1,0 +1,9 @@
+{
+    "name": "aula-03",
+    "version": "0.0.2",
+    "description": "Exemplo da Aula 03",
+    "dependencies": {
+        "socket.io": "*"
+    },
+    "engine": "node 0.6.x"
+}

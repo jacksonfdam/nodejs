@@ -1,0 +1,16 @@
+{
+    "name": "aula-03",
+    "version": "0.0.1",
+    "description": "Exemplo da Aula 03",
+    "dependencies": {
+        "express": "*",
+        "socket.io": "*",
+        "cookie-parser": "*",
+        "express-session": "*",
+        "ejs": "*",
+        "consolidate": "*",
+        "swig": "*",
+        "qs": "*"
+    },
+    "engine": "node 0.6.x"
+}

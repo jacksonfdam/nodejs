@@ -1,0 +1,26 @@
+!!! 5
+html
+  head
+    title Galeria de fotos
+    style
+      .galeria{
+        width: 90%
+        margin: 0 auto;
+        text-align: center;
+			}
+      .foto {
+        padding: 10px;
+			  float: left;
+      }
+  body
+    .galeria
+      h3 Galeria de fotos
+      fieldset
+        legend Adicionar foto
+        form(action='/enviar-foto', method='post', enctype='multipart/form-data')
+          label Foto:
+            input(type='file', name='foto')
+          button(type='submit') Enviar
+      each foto, i in fotos
+        .foto
+          img(src='/#{foto}', width='240', height='120', border='0', alt='#{foto}')

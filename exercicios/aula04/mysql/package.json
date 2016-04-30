@@ -1,0 +1,14 @@
+{
+  "name": "mysql",
+  "version": "0.0.1",
+  "description": "Exemplo de conexão com o mySQL",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jackson F. de A. Mafra",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "git://github.com/felixge/node-mysql"
+  }
+}

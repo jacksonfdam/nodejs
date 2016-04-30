@@ -1,0 +1,12 @@
+{
+    "name": "TestesMongoDB",
+    "author": "Jackson F. de A. Mafra",
+    "version": "0.0.1",
+    "dependencies": {
+        "mongodb": "*"
+    },
+    "engine": "node 0.6.x",
+    "scripts": {
+        "postinstall": "node deleteCollection.js"
+    }
+}

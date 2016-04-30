@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-labs",
+  "version": "0.0.1",
+  "description": "Exercicios da Aula de NodeJS",
+  "dependencies": {
+    "express": "*"
+   },
+  "engine": "node >=0.6.x"
+}

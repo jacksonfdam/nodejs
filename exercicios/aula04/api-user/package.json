@@ -1,0 +1,16 @@
+{
+  "name": "api-user",
+  "version": "0.0.1",
+  "description": "Exemplo de API em node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jackson F. de A. Mafra",
+  "license": "MIT",
+  "dependencies": {
+    "node-uuid": "^1.4.1",
+    "express": "^4.9.0",
+    "level": "^0.18.0"
+  }
+}
