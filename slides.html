@@ -34,33 +34,731 @@
     ![NodeJS](https://raw.githubusercontent.com/cerebrobr/adesivos/master/view/nodejs.png)
     
 
+
     ---
 
     # NodeJS
     ###Intro
 
-    AngularJS extends HTML with new attributes.
-
-    AngularJS is perfect for *Single Page Applications* (**SPAs**).
-
-    AngularJS is easy to learn.
+    Event-driven I/O server-side JavaScript environment based on V8.
 
     ---
 
-    # Angular
+    # O que é Node.js?
+   
+    Muitos iniciantes em Node tem a dúvida de o quê exatamente ele é, e a descrição em nodejs.org definitivamente não ajuda.
 
-    AngularJS is a JavaScript framework. It can be added to an HTML page with a `<script>` tag.
+    Uma coisa importante de se perceber é que o Node não é um servidor web. Por ele próprio, não se tem nada. Ele não funciona como o Apache. Não existe um arquivo de configuração onde você o aponta para seus arquivos html. Se você quer que o Node seja um servidor HTTP, você tem que escrever um servidor HTTP (com a ajuda das bibliotecas incluídas). O Node.js é somente outra forma de executar código em seu computador. 
 
-    AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions.
-
-    AngularJS is a JavaScript **framework**. It is a library written in JavaScript.
-
-    AngularJS is distributed as a JavaScript file, and can be added to a web page with a script tag:
-
-    `<script src="angular.min.js"></script>`
+    Ele é simplesmente um JavaScript runtime(ambiente de execução de código JavaScript).
 
     ---
- 
+    # Conceito
+    
+    O Node JS é um interpretador Javascript do lado do servidor que altera a noção de como um servidor deveria funcionar. Seu objetivo é possibilitar que um programador crie aplicativos altamente escaláveise escreva código que manipule dezenas de milhares de conexões simultâneas.
+
+    Muito útil para criar aplicações Real-time.
+
+    Portanto, possibilita que o Client-side e o Server-side sejam escritosinteiramente útilizando apenas Javascript.
+
+    ---
+    # Programação orientada a eventos
+
+    As linguagens tradicionais normalmente vão executar comandos um atrás do outro, um de cada vez, executando de forma mais lenta pois o comando "2" só executará após o "1" terminar.
+
+    Diferente dessas linguagens que seguem um fluxo de controle padronizado, com o Node desenvolvemos orientado a eventos.
+
+    Então em vez de aguardar um comando terminar sua execução para ir ao próximo, o Node possui um laço de repetição que recebe as informações e dispara uma função de acordo com o evento.
+
+    Esses eventos podem ser dos mais diversos. Você vai utilizar os eventos que o Node já possui e criar os seus de acordo com sua aplicação.
+
+    E isso é muito bom, pois nos permite um sistema assíncrono.
+    ---
+    # Programação orientada a eventos
+
+    ![NodeJS](http://matheusazzi.com/img/post/assincrono.png)
+    
+    ---
+     # E assim nasceu o Node.js
+
+    Foi baseado neste problema que, no final de 2009, Ryan Dahl com a ajuda inicial de
+    14 colaboradores criou o Node.js. Esta tecnologia possui um modelo inovador, sua
+    arquitetura é totalmente non-blocking thread (não-bloqueante), apresentando uma
+    boa performance com consumo de memória e utilizando ao máximo e de forma
+    eficiente o poder de processamento dos servidores, principalmente em sistemas que
+    produzem uma alta carga de processamento.
+
+    ---
+     # E assim nasceu o Node.js
+
+    Esta é uma plataforma altamente escalável e de baixo nível, pois você vai programar
+    diretamente com diversos protocolos de rede e internet ou utilizar bibliotecas
+    que acessam recursos do sistema operacional, principalmente recursos de sistemas
+    baseado em Unix. O Javascript é a sua linguagem de programação, e isso foi possível
+    graças à engine Javascript V8, a mesma utilizada no navegador Google Chrome.
+    ---
+     # Single-thread
+
+    Suas aplicações serão single-thread, ou seja, cada aplicação terá instância de um único
+    processo. Se você esta acostumado a trabalhar com programação concorrente em
+    plataforma multi-thread, infelizmente não será possível com Node, mas saiba que
+    existem outras maneiras de se criar um sistema concorrente, como por exemplo,
+    utilizando clusters, que é um módulo nativo do Node.js e é super fácil de implementá-lo. 
+    Outra maneira é utilizar ao máximo a programação assíncrona.
+    ---
+     # Event-Loop
+
+    Node.js é orientado a eventos, ele segue a mesma filosofia de orientação de eventos
+    do Javascript client-side; a única diferença é que não existem eventos de click do
+    mouse, keyup do teclado ou qualquer evento de componentes HTML. Na verdade
+    trabalhamos comeventos de I/O do servidor, como por exemplo: o evento connect
+    de um banco de dados, um open de um arquivo, um data de um streaming de
+    dados e muitos outros.
+
+
+    O Event-Loop é o agente responsável por escutar e emitir eventos no sistema. Na
+    prática ele é um loop infinito que a cada iteração verifica em sua fila de eventos se um
+    determinado evento foi emitido. Quando ocorre, é emitido um evento. Ele o executa
+    e envia para fila de executados. Quando um evento está em execução, nós podemos
+    programar qualquer lógica dentro dele e isso tudo acontece graças aomecanismo de
+    função callback do Javascript.
+
+    ---
+    # Event-Loop
+
+    O design event-driven doNode.js foi inspirado pelos frameworks EventMachine
+    do Ruby (http://rubyeventmachine.com) e Twisted do Python (http://twistedmatrix.
+    com) . Porém, o Event-loop do Node é mais performático por que seu mecanismo é
+    nativamente executado de forma não-bloqueante. Isso faz deleumgrande diferencial
+    em relação aos seus concorrentes que realizamchamadas bloqueantes para iniciar os
+    seus respectivos Event-loops.
+    ---
+    # Instalação e configuração
+
+    Para configurar o ambiente Node.js, independente de qual sistema operacional você
+    utilizar, as dicas serão asmesmas. É claro que os procedimentos serão diferentes para
+    cada sistema (principalmente para oWindows, mas não será nada grave).
+
+
+    Instalando Node.js: 
+    Primeiro passo, acesse o site oficial: (http://nodejs.org)
+    e clique em Download, para usuários do Windows e MacOSX, basta baixar os
+    seus instaladores e executá-los normalmente. 
+
+    Para quem já utiliza Linux com Package Manager instalado, acesse esse link (https://github.com/joyent/node/wiki/
+    Installing-Node.js-via-package-manager) que é referente as instruções sobre como
+    instalá-lo em diferentes sistemas. 
+
+    Instale o Node.js de acordo com seu sistema, caso não ocorra problemas, basta abrir o seu terminal console ou prompt de comando e digitar o comando: node -v && npm -v para ver as respectivas versões do Node.js e NPM (Node Package Manager) que foram instaladas.
+
+    ---
+     # Já tenho o Node instalado, e agora o que fazer?
+
+     Uma vez instalado, agora você tem acesso a um novo comando chamado node. Você pode usar o comando node de duas formas diferentes. A primeira é sem argumentos. Isto irá abrir um shell interativo (REPL: read-eval-print-loop), onde você pode executar código JavaScript puro.
+
+        $ node
+        > console.log('Hello World');
+        Hello World
+        undefined
+
+    No exemplo acima eu digitei console.log('Hello World') dentro do shell e apertei enter. O Node vai então executar o código e nós podemos ver nossa mensagem registrada. Ele também imprimi undefined pelo fato de sempre mostrar o valor de retorno de cada comando, e console.log não retorna nada.
+
+
+    ---
+    # Já tenho o Node instalado, e agora o que fazer?
+
+     A outra forma de rodar o Node é fornecendo a ele um arquivo JavaScript para execução. Isto será na maioria das vezes a maneira como você irá utilizá-lo.
+
+    ***hello.js***
+    ```
+        console.log('Hello World');
+        $ node hello.js
+        Hello World
+     ```
+
+    Neste exemplo, eu movi o comando console.log() para dentro de um arquivo e então passei este arquivo para o comando node como um argumento. O Node então roda o JavaScript contido neste arquivo e imprimi "Hello World".
+    ---
+     # Gerenciando módulos com NPM
+
+    Assim como o Gems do Ruby ou o Maven do Java, o Node.js também possui o seu
+    próprio gerenciador de pacotes, ele se chama NPM (Node Package Manager). Ele
+    se tornou tão popular pela comunidade, que foi a partir da versão 0.6.0 do Node.js
+    que ele se integrou no instalador do Node.js, tornando-se o gerenciador default. Isto
+    simplificou a vida dos desenvolvedores na época, pois fez com que diversos projetos
+    se convergissem para esta plataforma.
+
+
+    ---
+     # NPM
+
+    Abaixo os comandos principais para que você tenha noções de como gerenciar módulos nele:
+
+    
+    - npm install nome_do_módulo: instala um módulo no projeto.
+    
+    - npm install -g nome_do_módulo: instala um módulo global.
+    
+    - npm install nome_do_módulo --save: instala o módulo no projeto, atualizando o package.json na lista de dependências.
+    
+    - npm list: lista todos os módulos do projeto.
+    
+    - npm list -g: lista todos os módulos globais.
+    
+    - npm remove nome_do_módulo: desinstala um módulo do projeto.
+
+    ---
+     # NPM
+    
+    - npm remove -g nome_do_módulo: desinstala um módulo global.
+    
+    - npm update nome_do_módulo: atualiza a versão do módulo.
+    
+    - npm update -g nome_do_módulo: atualiza a versão do módulo global.
+    
+    - npm -v: exibe a versão atual do npm.
+    
+    - npm adduser nome_do_usuário: cria uma conta no npm, através do site (https://npmjs.org) .
+    
+    - npm whoami: exibe detalhes do seu perfil público npm (é necessário criar uma conta antes).
+    
+    - npm publish: publica um módulo no site do npm, é necessário ter uma conta antes.
+    ---
+    # Entendendo o package.json
+
+    Todo projeto Node.js é chamado de módulo, mas o que é um módulo?
+
+    O termo módulo surgiu do conceito de que a arquitetura do Node.js é modular. 
+    
+    E todo módulo é acompanhado de um arquivo descritor, conhecido pelo nome de package.json.
+    
+    Este arquivo é essencial para um projeto Node.js. Um package.json mal escrito pode causar bugs ou impedir o funcionamento correto do seumódulo, pois ele possui alguns atributos chaves que são compreendidos pelo Node.js e NPM.
+
+
+    ---
+    # Modulos
+
+        {
+            "name": "meu-primero-node-app",
+            "description": "Meu primeiro app em Node.js",
+            "author": "Jackson Mafra <jackson@email.com>",
+            "version": "1.2.3",
+            "private": true,
+            "dependencies": {
+                "modulo-1": "1.0.0",
+                "modulo-2": "~1.0.0",
+                "modulo-3": ">=1.0.0"
+            },
+            "devDependencies": {
+                "modulo-4": "*"
+            }
+        }
+
+    Com esses atributos, você já descreve o mínimo possível o que será sua aplicação. O atributo name é o principal, com ele você descreve o nome do projeto, nome pelo qual seu módulo será chamado via função
+    require('meu-primeiro-node-app'). Em description descrevemos o que será este módulo. Ele deve ser escrito de forma curta e clara explicando um resumo do módulo.
+    ---
+    # Modulos
+
+    O author é um atributo para informar o nome e email do autor, utilize o formato: Nome <email> para que sites como (https://npmjs.org) reconheça corretamente esses dados. 
+
+    Outro atributo principal é o version, é com ele que definimos a versão atual do módulo, é extremamente recomendado que tenha este atributo, senão será impossível instalar o módulo via comando npm. 
+
+    O atributo private é um booleano, e determina se o projeto terá código aberto ou privado para download no (https://npmjs.org) .
+
+    ---
+    # Modulos - Versionamento
+
+    Os módulos no Node.js trabalham com 3 níveis de versionamento. Por exemplo, a versão 1.2.3 esta dividida nos níveis: Major (1),Minor (2) e Patch (3). 
+
+    Repare que no campo dependencies foram incluídos 4 módulos, cada módulo utilizou uma forma diferente de definir a versão que será adicionada no projeto. 
+
+    O primeiro, o modulo-1 somente será incluído sua versão fixa, a 1.0.0. Utilize este tipo versão para instalar dependências cuja suas atualizações possamquebrar o projeto pelo simples fato de que certas funcionalidades foram removidas e ainda as utilizamos na aplicação. 
+
+    O segundo módulo já possui uma certa flexibilidade de update. Ele utiliza o caractere ~ que faz atualizações a nível de patch (1.0.x), geralmente essas atualizações são seguras, trazendo apenasmelhorias ou correções de bugs. 
+
+    ---
+    # Modulos - Versionamento
+
+    O modulo-3 atualiza versões que seja maior ou igual a 1.0.0 em todos os níveis de versão. Em
+    muitos casos utilizar ”>=” pode ser perigoso, por que a dependência pode ser atualizada a nível major ou minor, contendo grandes modificações que podem quebrar um sistema em produção, comprometendo seu funcionamento e exigindo que você
+    atualize todo código até voltar ao normal. 
+
+    O último, o modulo-4, utiliza o caractere "*”, este sempre pegará a última versão do módulo em qualquer nível. Ele também pode causar problemas nas atualizações e tem o mesmo comportamento do versionamento do modulo-3. Geralmente ele é utilizado em devDependencies, que são dependências focadas para testes automatizados, e as atualizações dos módulos não prejudicam o comportamento do sistema que já está no ar.
+
+    ---
+    # Modulos - Versionamento    
+
+    Depois de um tempo escrevendo código Javascript, você começa a perceber que algumas coisas começam a se repetir, outras você precisa reutilizar, então você pensa:
+    
+    Como eu posso modularizar isso, para que esse componente seja reutilizado em vários projetos diferentes?
+    Para responder a essa pergunta, entram em cena duas especificações de módulo: **AMD** e **CommonJS** (ou **CJS**).
+    
+    Eles permitem que você escreva seus códigos de forma modular, seguindo algumas definições. Vamos falar sobre cada um deles.
+
+    ---
+    # Modulos - AMD
+
+    Asynchronous Module Definition (AMD) ficou bastante conhecido por causa do RequireJS. O formato de utilização do AMD é o seguinte:
+
+        define( 'moduleName', [ 'jquery' ], function( $ ) {
+          return 'Hello World!';
+        });
+
+
+    Essa é a estrutura mais básica de um módulo escrito no formato AMD. A função define será usada para todo novo módulo que você criar.
+
+    Como primeiro parâmetro dessa função, você pode passar o nome do módulo - opcional - (que será usado para você fazer o “include” dele em outro lugar).
+
+    O segundo parâmetro é um array de dependências desse módulo, também opcional. No nosso exemplo, colocamos como dependência a biblioteca jQuery.
+
+    ---
+    # Modulos - AMD
+
+    E o terceiro parâmetro é a função de callback que define o módulo e retorna o seu conteúdo. Essa função é obrigatória. Ela será chamada assim que todas as dependências do array no segundo parâmetro forem baixadas, e estiverem prontas para uso.
+
+    As dependências normalmente retornam valores. Para usar os valores retornados, você deve passar como parâmetros da função as variáveis que irão receber os valores das dependências, sempre na mesma ordem do array.
+
+    ---
+    # Modulos - AMD
+
+    Por exemplo, se no seu módulo você vai precisar utilizar o jQuery e a LoDash, você pode fazer a chamada da seguinte forma:
+
+        define([ 'jquery', 'lodash' ], function( $, _ ) {
+        // código do seu módulo
+        });
+
+    Se não houver dependências, a função já será executada assim que ela for chamada:
+   
+
+        define(function() {
+         // código do seu módulo
+        });
+
+    ---
+    # Modulos - CommonJS
+
+    Usando o exemplo dado quando falamos sobre AMD, nós podemos escrevê-lo assim, usando CJS:
+
+        var $ = require( 'jquery' );
+        function myModule() {
+          // código do seu módulo
+        }
+        module.exports = myModule;
+    
+    Nesse formato as coisas ficam muito explícitas. Na variável $, estamos importando através do require o módulo jquery. Na função myModule(), você vai escrever seu módulo, que será exportado através do module.exports, para que possa ser importado para outro arquivo usando o require.
+    ---
+    # Modulos - CommonJS
+
+    E o módulo jquery, para ser importado com o require, terá uma estrutura mais ou menos assim (arquivo jquery.js):
+
+        function jQuery() {
+          // código da jQuery
+        }
+        module.exports = jQuery;
+
+    Bem fácil de entender, não?
+    
+    ---
+    # Modulos - CommonJS
+
+    O CommonJS também dispõe de um objeto exports, que nada mais é que um alias para module.exports. Usando o exports, você consegue exportar vários métodos separadamente:
+
+        exports.method1 = function method1() {
+          // método 1 do seu módulo
+        };
+
+        exports.method2 = function method2() {
+          // método 2 do seu módulo
+        };
+            
+    ---
+    # Modulos - CommonJS
+
+    Que também pode ser escrito dessa forma:
+
+        module.exports = function() {
+          return {
+            method1: function method1() {
+              // método 1 do seu módulo
+            },
+
+            method2: function method2() {
+              // método 2 do seu módulo
+            }
+          }
+        };
+
+    Os dois retornam exatamente a mesma coisa. Na verdade, no segundo exemplo é necessário executar a função antes de poder usar os métodos, mas os dois são formatos padrão de objetos Javascript, que você já está acostumado 
+    ---
+    # Modulos - CommonJS
+
+    Podemos usar o CommonJS tanto no servidor, com NodeJS, por exemplo, como no browser, com o browserify.
+    
+    Bom, vimos que, usando tanto AMD como o CommonJS, fica fácil de modularizar qualquer código JS. Mas pensando em um cenário mais amplo: como eu vou saber se o desenvolvedor que vai usar meu módulo está usando AMD ou CommonJS? Vou ter que disponibilizar duas versões?
+    
+    Criar duas versões do mesmo código é praticamente uma heresia! ***DON’T REPEAT YOURSELF***!
+  
+    ---
+    # Modulos - UMD
+    ## O Capitão Planeta dos módulos
+
+    Universal Module Definition (UMD), é o cara que vai unir os poderes do AMD e do CommonJS em um único componente! Na verdade, ele é responsável por verificar qual dos formatos está sendo usado, para que você não precise duplicar o seu código :)
+
+    Seu código usando UMD vai ficar mais ou menos assim:
+
+        ;(function( root, factory ) {
+            if( typeof define === 'function' && define.amd ) {
+                define([ 'jquery' ], factory );
+            }
+            else if( typeof exports === 'object' ) {
+                module.exports = factory( require( 'jquery' ) );
+            }
+            else {
+                root.myModule = factory( root.jQuery );
+            }
+        })(this, function( $ ) {
+            return 'Hello World'!
+        });
+        
+    ---
+    # Modulos - UMD 
+
+    Eu sei, o código é bem feio, e à primeira vista é meio ruim de entender. Mas vou quebrá-lo em partes para explicar melhor o que ele faz, ok? Vamos lá!
+
+    Basicamente, você vai iniciar com uma IIFE (Immediately-Invoked Function Expression), ou função imediata, que é uma função auto-executável:
+
+
+        ;(function() {
+          
+        })();
+
+    Essa função vai receber dois parâmetros: o primeiro é o this, definido como root. Todo mundo sabe como o this em Javascript é polêmico, pois ele varia o seu valor conforme o escopo em que ele se encontra. 
+
+    No caso, estamos chamando o this no escopo global, logo, se eu estiver no client (browser), ele vai ser o objeto window. E se eu estiver no server (usando Node, por exemplo), ele será o objeto global.
+
+    ---
+    # Modulos - UMD  
+
+    O segundo parâmetro, definido como factory, é a função que vai executar seu módulo. Sabemos que, em Javascript, funções são objetos de primeira classe. Elas são tratadas como qualquer outro tipo de valor, logo, elas também podem ser passadas por parâmetro para outra função. O UMD se aproveita disso para deixar o negócio um pouco mais ilegível e difícil de entender. Mas olhando pelo lado bom, assim que você entende isso, fica fácil identificar cada parte :D
+    Então, passando os parâmetros, vai ficar assim:
+  
+        ;(function( root, factory ) {
+
+        })( this, function() {} );
+
+    Dentro da função passada como parâmetro vai o código do seu módulo:
+       
+        ;(function( root, factory ) {
+
+        })( this, function() {
+            // Código do seu módulo
+        });
+
+    ---
+    # Modulos - UMD
+
+    Agora vamos ver o que acontece por dentro da função principal. Como o UMD identifica se você está usando AMD ou CommonJS.
+
+    O formato AMD tem por padrão a função define e uma propriedade amd nessa função. É isso que é verificado no primeiro if:
+
+        if( typeof define === 'function' && define.amd ) {
+            // ...
+        }
+
+    Ou seja, se existir um define e este for uma função, e a propriedade amd estiver definida para essa função, então o desenvolvedor está usando alguma lib no formato AMD. Sabendo disso, é só eu usar essa função define para “definir” meu módulo, passar as dependências no array e chamar a função que executa o módulo:
+
+        if( typeof define === 'function' && define.amd ) {
+          define([ 'jquery' ], factory );
+        }
+
+    ---
+    # Modulos - UMD
+
+    Lembra quando falamos sobre AMD? Cada parâmetro da função do módulo representa uma depência do array, mantendo a ordem. Então a função que é passada como parâmetro (factory), precisa receber o parâmetro para chamar o jQuery dentro do nosso módulo, já que ele é uma dependência:
+   
+
+        ;(function( root, factory ) {
+          if( typeof define === 'function' && define.amd ) {
+            define([ 'jquery' ], factory );
+          }
+        })( this, function( $ ) {
+          // Código do seu módulo
+        });
+
+
+    Já resolvemos o problema do ***AMD***...
+
+    ---
+    # Modulos - UMD
+
+    Agora, se o usuário não estiver usando AMD, vamos ver se ele está usando CommonJS, na próxima verificação:
+
+        else if( typeof exports === 'object' ) {
+          // ...
+        }
+    Vimos que uma das coisas que define o formato CommonJS é que ele tem um objeto exports. Então é isso que iremos verificar. Se exports existir, e for um objeto, exportamos nosso módulo:
+      
+        // ...
+        else if( typeof exports === 'object' ) {
+          module.exports = factory( require( 'jquery' ) );
+        }
+        // ...
+    Como precisamos passar o jQuery como parâmetro ao nosso módulo, usamos o require, pois já vimos que é assim que uma dependência é incluída usando esse formato.
+    
+    Resolvido também o ***CommonJS***!
+
+    ---
+    # Modulos - UMD
+
+    Mas e se o desenvolvedor quiser usar nosso módulo, mas não estiver usando nem AMD, e nem CommonJS?
+    
+    Nesse caso, podemos dar um nome ao nosso módulo, exportando-o no escopo global, usando o root, que vai ser o objeto window, se ele estiver no browser, ou global, se ele estiver usando Node. Passamos também o objeto jQuery, que já deve estar também no escopo global:
+
+
+        else {
+          root.myModule = factory( root.jQuery );
+        }
+
+    ---
+    # Modulos - UMD
+
+    Existem algumas outras variações do UMD.
+
+    Então a solução é usar UMD pra tudo o que eu fizer?
+
+    Não jovem.
+
+    Para tudo o que for referente à sua aplicação em específico, você vai usar um único padrão: ou ***AMD***, ou ***CommonJS***, ou então algum pattern próprio.
+
+    Agora, quando você tiver um módulo genérico, que você quiser reutilizar em qualquer ambiente, e em qualquer projeto, é a hora de usar ***UMD***.
+
+    ---
+     # Escopos de variáveis globais
+
+    Assim como no browser, utilizamos o mesmo Javascript no Node.js, ele também utiliza escopos locais e globais de variáveis. A única diferença é como são implementados esses escopos. No client-side as variáveis globais são criadas da seguinte maneira:
+
+        window.hoje = new Date();
+        alert(window.hoje);
+
+    Em qualquer browser a palavra-chave window permite criar variáveis globais que são acessadas em qualquer lugar. Já no Node.js utilizamos uma outra keyword para aplicar essa mesma técnica:
+    
+        global.hoje = new Date();
+        console.log(global.hoje);
+    
+    
+
+    ---
+     # Escopos de variáveis globais
+
+    Ao utilizar global mantemos uma variável global, acessível em qualquer parte do projeto sem a necessidade de chamá-la via require ou passá-la por parâmetro em uma função. Esse conceito de variável global é existente na maioria das linguagens de programação, assim como sua utilização, pelo qual é recomendado trabalhar como mínimo possível de variáveis globais, para evitar futuros gargalos de memória na aplicação.
+    
+
+    ---
+     # CommonJS, Como ele funciona?
+
+    O Node.js utiliza nativamente o padrão CommonJS para organização e carregamento de módulos. Na prática, diversas funções deste padrão será utilizada comfrequência em um projeto Node.js. A função require('nome-do-modulo') é um exemplo disso, ela carrega um módulo. E para criar um código Javascript que seja modular e carregável pelo require, utilizam-se as variáveis globais: exports ou module.exports. Abaixo apresento-lhe dois exemplos de códigos que utilizam esse padrão do CommonJS, primeiro crie o código hello.js:
+    
+        module.exports = function(msg) {
+        console.log(msg);
+        };
+
+
+    ---
+    # CommonJS
+
+    E também crie o código human.js com o seguinte código:
+
+        exports.hello = function(msg) {
+        console.log(msg);
+        };
+
+    A diferença entre o hello.js e o human.js esta na maneira de como eles serão carregados. Em hello.js carregamos uma única função modular e em human.js é carregado um objeto comfunçõesmodulares. Essa é a grande diferença entre eles.
+
+    ---
+
+    # CommonJS
+
+    Para entendermelhor na prática crie o código app.js para carregar esses módulos, seguindo o código abaixo:
+        
+        var hello = require('./hello');
+        var human = require('./human');
+        hello('Olá pessoal!');
+        human.hello('Olá galera!');
+
+    Tenha certeza de que os códigos hello.js, human.js e app.js estejam na mesma pasta e rode no console o comando: 
+
+        node app.js.
+
+    ---
+     # Aplicação web
+
+    Node.js é multiprotocolo, ou seja, com ele será possível trabalhar com os protocolos:
+    HTTP, HTTPS, FTP, SSH, DNS, TCP, UDP,WebSockets e também existem outros protocolos, que são disponíveis através de módulos não-oficiais criados pela comunidade.
+    Um dos mais utilizados para desenvolver sistemas web é o protocolo HTTP. De fato, é o protocolo comamaior quantidade de módulos disponíveis para trabalhar no Node.js.
+
+    Toda aplicação web necessita de um servidor para disponibilizar todos os seus recursos. Na prática, comoNode.js você desenvolve uma "aplicação middleware”, ou seja, além de programar as funcionalidades da sua aplicação, você também programa códigos de configuração de infraestrutura da sua aplicação.
+
+    ---
+     # Aplicação web
+
+     Existem alguns módulos adicionais que já vêm com o mínimo necessário de configurações prontas para você não perder tempo trabalhando comisso. 
+
+     Alguns módulos conhecidos são: Connect(https://github.com/senchalabs/connect), Express (http://expressjs.com), Geddy (http://geddyjs.org) , CompoundJS (http://compoundjs.com) , Sails (http://balderdashy.github.io/sails) . 
+
+     Esses módulos já são preparados para trabalhar desde uma infraestrutura mínima até uma mais enxuta, permitindo trabalhar desde arquiteturas RESTFul, padrão MVC (Model-View-Controller) e também com conexões real-time utilizando WebSockets.
+
+    ---
+     # Servidor HTTP
+
+     Primeiro usaremos apenas o módulo nativo HTTP, pois precisamos entender todo o conceito desse módulo, visto que todos os frameworks citados acima o utilizam como estrutura inicial em seus projetos. Abaixo mostro a vocês uma clássica aplicação Hello World. Crie o arquivo hello_server.js com o seguinte conteúdo:
+
+        var http = require('http');
+        var server = http.createServer(function(request, response){
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write("<h1>Hello World!</h1>");
+            response.end();
+        });
+        server.listen(3000);
+
+    Esse é um exemplo clássico e simples de um servidor node.js. Ele está sendo executado na porta 3000, por padrão ele responde através da rota raiz “/” um resultado em formato html com a mensagem: Hello World!.
+    Vá para a linha de comando e rode _node hello_server.js_. Faça o teste acessando, no seu navegador, o endereço _http://localhost:3000_ .
+    ---
+     # Como funciona um servidor http?
+
+     Um servidor node.js utiliza o mecanismo Event loop, sendo responsável por lidar coma emissão de eventos. Na prática, a função http.createServer() é responsável por levantar ums ervidor e o seu callback function(request, response) apenas é executado quando o servidor recebe uma requisição. Para isso, o Event loop constantemente verifica se o servidor foi requisitado e, quando ele recebe uma requisição, ele emite um evento para que seja executado o seu callback.
+
+    ---
+    # Como funciona um servidor http?
+
+     Se você ainda está começando com JavaScript, pode estranhar um pouco ficar passando como parâmetro uma function por todos os lados,mas isso é algo muito comum no mundo Javascript. Como sintaxe alternativa, caso o seu código fique muito complicado em encadeamentos de diversos blocos, podemos isolá-lo em funções com nomes mais significativos, por exemplo:
+
+        var http = require('http');
+        var atendeRequisicao = function(request, response) {
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write("<h1>Hello World!</h1>");
+            response.end();
+        }
+        var server = http.createServer(atendeRequisicao);
+        var servidorLigou = function() {
+            console.log('Servidor Hello World rodando!');
+        }
+        server.listen(3000, servidorLigou);
+
+    ---
+     # Rotas
+
+    Até agora respondemos apenas o endereço /, mas queremos possibilitar que nosso servidor também responda a outros endereços. Utilizando um palavreado comum entre desenvolvedores rails, queremos adicionar novas rotas.
+
+    Vamos adicionar duas novas rotas, uma rota /bemvindo para página de “Bemvindo ao Node.js!” e uma rota genérica, que leva para uma página de erro.
+
+        var http = require('http');
+        var server = http.createServer(function(request, response){
+        response.writeHead(200, {"Content-Type": "text/html"});
+        if(request.url == "/"){
+            response.write("<h1>Página principal</h1>");
+        }else if(request.url == "/bemvindo"){
+            response.write("<h1>Bem-vindo :)</h1>");
+        }else{
+            response.write("<h1>Página não encontrada :(</h1>");
+        }
+        response.end();
+        });
+        server.listen(3000, function(){
+            console.log('Servidor rodando!');
+        });
+    ---
+     # URL
+
+    a leitura de url é obtida através da função request.url() que retorna uma string sobre o que foi digitado na barra de endereço do browser. Esses endereços utilizam padrões para capturar valores na url. Esses padrões são: query     strings ( ?nome=joao) e path ( /admin). Em um projeto maior, tratar todas as urls  dessa maneira seria trabalhoso e confuso demais. NoNode.js, existe omódulo nativo chamado url, que é responsável por fazer parser e formatação de urls. Acompanhe como capturamos valores de uma query string no exemplo abaixo.
+
+        var http = require('http');
+        var url = require('url');
+        var server = http.createServer(function(request, response){
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write("<h1>Dados da query string</h1>");
+            var result = url.parse(request.url, true);
+
+            for(var key in result.query){
+                response.write("<h2>"+key+" : "+result.query[key]+"</h2>");
+            }
+            response.end();
+        });
+        server.listen(3000, function(){
+            console.log('Servidor http.');
+        });
+
+    ---
+     # URL
+
+    Neste exemplo, a função url.parse(request.url, true) fez um parser da url obtida pela requisição do cliente (request.url).
+    Esse módulo identifica através do retorno da função url.parser() os seguintes atributos:
+
+    - ***href:*** Retorna a url completa: _‘http://user:pass@host.com:8080/p/a/t/h?query=string#hash’_
+    - ***protocol:*** Retorna o protocolo: _‘http’_
+    - ***host:*** Retorna o domínio com a porta: _‘host.com:8080’_
+    - ***auth:*** Retorna dados de autenticação: _‘user:pass’_
+    - ***hostname:*** Retorna o domínio: _‘host.com’_
+    - ***port:*** Retorna a porta: _‘8080’_
+    - ***pathname:*** Retorna os pathnames da url: _‘/p/a/t/h’_
+    - ***search:*** Retorna uma query string: _‘?query=string’_
+    - ***path:*** Retorna a concatenação de pathname com query string: _‘/p/a/t/h?query=string’_
+    - ***query:*** Retorna uma query string em JSON: _{‘query’:’string’}_
+    - ***hash:*** Retorna ancora da url: _‘#hash’_
+
+    ---
+     # File System
+
+    Agora precisamos organizar os códigos HTML, e uma boa prática é separá-los do  Javascript, fazendo com que a aplicação renderize código HTML quando o usuário solicitar uma determinada rota. Para isso, utilizaremos outromódulo nativo FS (File System). Ele é responsável por manipular arquivos e diretórios do sistema operacional.
+    
+    O mais interessante desse módulo é que ele possui diversas funções de manipulação tanto de forma assíncrona como de forma síncrona. Por padrão, as funções nomeadas com o final Sync() são para tratamento síncrono. No exemplo abaixo,
+    apresento as duas maneiras de ler um arquivo utilizando File System:
+        
+        var fs = require('fs');
+        fs.readFile('/index.html', function(erro, arquivo){
+        if (erro) throw erro;
+        console.log(arquivo);
+        });
+        var arquivo = fs.readFileSync('/index.html');
+        console.log(arquivo);
+
+    ---
+    # File System
+
+    Diversos módulos do Node.js possuem funções com versões assíncronas e síncronas.
+    
+    O fs.readFile() faz uma leitura assíncrona do arquivo index.html.
+    
+    Depois que o arquivo foi carregado, é invocadouma função callback para fazer os tratamentos finais, seja de erro ou de retorno do arquivo. 
+
+    Já o fs.readFileSync()realizou uma leitura síncrona, bloqueando a aplicação até terminar sua leitura e retornar o arquivo.
+    
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+     # Titulo
+    ---
+   
   </textarea>
   <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
   </script>
