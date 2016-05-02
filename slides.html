@@ -729,36 +729,128 @@
     
     Depois que o arquivo foi carregado, é invocadouma função callback para fazer os tratamentos finais, seja de erro ou de retorno do arquivo. 
 
-    Já o fs.readFileSync()realizou uma leitura síncrona, bloqueando a aplicação até terminar sua leitura e retornar o arquivo.
+    Já o fs.readFileSync() realizou uma leitura síncrona, bloqueando a aplicação até terminar sua leitura e retornar o arquivo.
+
+    ---
+    # File System
+
+    ## Limitações do File System nos sistemas operacionais
+
+    > Um detalhe importante sobre o módulo File System é que ele não é 100% consistente entre os sistemas operacionais.
+
+    > Algumas funções são específicas para sistemas Linux, OS X,Unix e outras são apenas para Windows. Para melhores informações leia sua documentação: http://nodejs.org/api/fs.html
+
+    ---
+     # I/O Assíncrono
+
+    O código abaixo exemplifica as diferenças entre uma função síncrona e assíncrona em relação a linha do tempo que ela são executadas. Basicamente criaremos um loop de 5 iterações, a cada iteração será criado um arquivo texto com o mesmo conteúdo Hello Node.js!.
+
+    _text_sync.js_
+
+        var fs = require('fs');
+        for(var i = 1; i <= 5; i++) {
+            var file = "sync-txt" + i + ".txt";
+            var out = fs.writeFileSync(file, "Hello Node.js!");
+            console.log(out);
+        }
+
+    _text_async.js_
+
+        var fs = require('fs');
+        for(var i = 1; i <= 5; i++) {
+            var file = "async-txt" + i + ".txt";
+            fs.writeFile(file, "Hello Node.js!", function(err, out) {
+                console.log(out);
+            });
+        }
+
+    ---
+     # Threads vs Assincronismos
+
+    Por mais que as funções assíncronas possamexecutar em paralelo várias tarefas, elas jamais serão consideradas umaThread (por exemploThreads do Java). A diferença é queThreads são manipuláveis pelo desenvolvedor, ou seja, você pode pausar a execução de umaThread ou fazê-laesperar o término de uma outra. Chamadas assíncronas apenas invocam suas funções numa ordem de que você não tem controle, e você só sabe quando uma chamada terminou quando seu callback é executado.
+
+    Pode parecer vantajoso ter o controle sobre asThreads a favor de um sistema que executa tarefas em paralelo, mas pouco domínio sobre eles pode transformar seu sistema em um caos de travamentos dead-locks, afinal Threads são executadas de forma bloqueante. Este é o grande diferencial das chamadas assíncronas, elas executam em paralelo suas funções sem travar processamento das outras e principalmente sem bloquear o sistema principal.
+
+
+    ---
+     # Entendendo o Event-Loop
+
+    Realmente trabalhar de forma assíncrona tem ótimos benefícios em relação a processamento I/O. Isso acontece devido ao fato, de queuma chamada de I/O é considerada um tarefa muito custosa para um computador realizar.
+
+    Vendo o contexto de um servidor, pormais potente que seja seu hardware, eles terão os mesmos bloqueios perceptíveis pelo usuário, a diferença é que um servidor estará lidando com milhares usuários requisitando I/O, com a grande  probabilidade de ser ao mesmo tempo.
     
+    É por isso que o Node.js trabalha com assincronismo. Ele permite que você desenvolva um sistema totalmente orientado a eventos, tudo isso graças ao Event-loop.
+
     ---
-     # Titulo
+     # Entendendo o Event-Loop
+
+    Ele é um mecanismo interno, dependente das bibliotecas da linguagem C: libev (http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod) e libeio (http://software.schmorp.de/pkg/libeio.html),responsáveis por prover o assíncrono I/O no Node.js.
+
+    Basicamente ele é um loop infinito, que em cada iteração verifica se existem novos eventos em sua fila de eventos.
+
+    Tais eventos somente aparecem nesta fila quando são emitidos durante suas interações na aplicação. O EventEmitter, é o módulo responsável por emitir eventos e a maioria das bibliotecas do Node.js herdam deste módulo suas funcionalidades de eventos.
+
     ---
-     # Titulo
+     # Entendendo o Event-Loop
+
+     Quando um determinado código emite um evento, omesmo é enviado para a fila de eventos para que o Event-loop executeo, e em seguida retorne seu callback. Tal callback pode ser executado através de uma função de escuta, semanticamente conhecida pelo nome: on().
+    
+    Programar orientado a eventos vai manter sua aplicação mais robusta e estruturada para lidar com eventos que são executados de forma assíncrona não bloqueantes.
+
+    Para conhecer mais sobre as funcionalidades do EventEmitter acesse sua documentação: http://nodejs.org/api/events.html
+
     ---
-     # Titulo
+    # Callbacks Hell
+
+    De fato, vimos o quanto é vantajoso e performático trabalhar de forma assíncrona, porém em certosmomentos, inevitavelmente implementaremos diversas funções assíncronas, que serão encadeadas uma na outra através das suas funções callback.
+
+        var fs = require('fs');
+        fs.readdir(__dirname, function(erro, contents) {
+            if (erro) { throw erro; }
+            contents.forEach(function(content) {
+                var path = './' + content;
+                fs.stat(path, function(erro, stat) {
+                    if (erro) { throw erro; }
+                    if (stat.isFile()) {
+                        console.log('%s %d bytes', content, stat.size);
+                    }
+                });
+            });
+        });
+
     ---
-     # Titulo
+    # Callbacks Hell
+
+    Reparem na quantidade de callbacks encadeados que existem em nosso código. Detalhe: ele apenas faz uma simples leitura dos arquivos de seu diretório e imprime na tela seu nome e tamanho em bytes.
+
+    Um pequena tarefa como essa deveria ter menos encadeamentos, concorda? Agora, imagine como seria a organização disso para realizar tarefasmas complexas? Praticamente o seu código seria um caos e totalmente difícil de fazermanutenções. Por ser assíncrono, você perde o controle do que está executando em troca de ganhos com performance, porém, um detalhe importante sobre assincronismo é que na maioria dos casos os callbacks bem elaborados possuem como parâmetro uma variável de erro.
+
     ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-     # Titulo
-    ---
-   
+    # Callback Heaven
+
+    Uma boa prática de código Javascript é criar funções que expressem seu objetivo e de forma isoladas, salvando em variável e passando-as como callback.
+
+        var fs = require('fs');
+        var lerDiretorio = function() {
+            fs.readdir(__dirname, function(erro, diretorio) {
+                if (erro) return erro;
+                    diretorio.forEach(function(arquivo) {
+                    ler(arquivo);
+                });
+            });
+        };
+
+        var ler = function(arquivo) {
+            var path = './' + arquivo;
+            fs.stat(path, function(erro, stat) {
+                if (erro) return erro;
+                if (stat.isFile()) {
+                    console.log('%s %d bytes', arquivo, stat.size);
+                }
+            });
+        };
+        lerDiretorio();
+     
   </textarea>
   <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
   </script>
