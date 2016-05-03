@@ -850,7 +850,687 @@
             });
         };
         lerDiretorio();
-     
+    ---
+    # Express
+
+    Programar utilizando apenas a API HTTP nativa é muito trabalhoso! Conforme surgem necessidades de implementar novas funcionalidades, códigos gigantescos seriam acrescentados, aumentando a complexidade do projeto e dificultando futuras manutenções.
+
+    Foi a partir desse problema que surgiu um framework muito popular, que se chama Express. Ele é um módulo para desenvolvimento de aplicações web de grande escala. Sua filosofia de trabalho foi inspirada pelo framework Sinatra da linguagem Ruby. O site oficial do projeto é: (http://expressjs.com) .
+
+    ---
+    # Express
+
+    Ele possui as seguintes características:
+
+    - MVR (Model-View-Routes);
+    - MVC (Model-View-Controller);
+    - Roteamento de urls via callbacks;
+    - Middleware;
+    - Interface RESTFul;
+    - Suporte a File Uploads;
+    - Configuração baseado em variáveis de ambiente;
+    - Suporte a helpers dinâmicos;
+    - Integração com Template Engines;
+    - Integração com SQL e NoSQL;
+
+    ---
+    # Instalação e configuração
+
+    Sua instalação é muito simples e há algumas opções de configurações para começar um projeto. Para aproveitar todos os seus recursos, recomendo que instale-o em modo global:
+
+        npm install -g express
+
+    Feito isso, será necessário fechar e abrir seu terminal para habilitar o comando express, que é um CLI (Command Line Interface) do framework. 
+
+    Ele permite gerar um projeto inicial com suporte a sessões, Template engine (por padrão ele inclui o framework Jade) e um CSS engine (por padrão ele utiliza CSS puro). Para visualizar todas as opções execute o comando: 
+
+        express -h
+
+    ---
+    # Instalação
+
+        mkdir lab0201
+        cd lab0201
+
+    Use o comando npm init para criar um arquivo package.json para o seu aplicativo. Para obter mais informações sobre como o package.json funciona, consulte [Detalhes do tratamento de package.json](https://docs.npmjs.com/files/package.json) do npm.   
+    
+    $ npm init
+
+    Este comando solicita por várias coisas, como o nome e versão do seu aplicativo. Por enquanto, é possível simplesmente pressionar RETURN para aceitar os padrões para a maioria deles, com as seguintes exceções:
+
+
+        entry point: (index.js)
+
+    Insira app.js, ou qualquer nome que deseje para o arquivo principal. 
+
+    Se desejar que seja index.js, pressione RETURN para aceitar o nome de arquivo padrão sugerido.
+    
+    ---
+    
+    # Instalação    
+
+    Agora instale o Express no diretório app e salve-o na lista de dependências. Por exemplo:
+
+
+        npm install express --save 
+
+    ---
+    # Instalação
+
+    Inclua o seguinte código:
+
+
+        var express = require('express');
+        var app = express();
+
+        app.get('/', function (req, res) {
+          res.send('Hello World!');
+        });
+
+        app.listen(3000, function () {
+          console.log('Example app listening on port 3000!');
+        });
+
+    O aplicativo inicia um servidor e escuta a porta 3000 por conexões. O aplicativo responde com “Hello World!” à solicitações para a URL raiz (/) ou rota. Para todos os outros caminhos, ele irá responder com um 404 Não Encontrado.
+
+
+    ---
+    # Gerador de aplicativos do Express
+
+    Use a ferramenta geradora de aplicativos, express, para rapidamente criar uma estrutura básica de aplicativo.
+
+    Instale o express com o comando a seguir:
+
+
+        npm install express-generator -g
+
+    Exiba as opções de comando com a opção -h:
+
+
+        $ express -h
+
+          Usage: express [options][dir]
+
+          Options:
+
+            -h, --help          output usage information
+            -V, --version       output the version number
+            -e, --ejs           add ejs engine support (defaults to jade)
+                --hbs           add handlebars engine support
+            -H, --hogan         add hogan.js engine support
+            -c, --css <engine>  add stylesheet <engine> support (less|stylus|compass|sass) (defaults to plain css)
+                --git           add .gitignore
+            -f, --force         force on non-empty directory
+
+
+    ---
+    # Gerador de aplicativos do Express
+
+    Por exemplo, o seguinte cria um aplicativo do Express chamado lab0203 no diretório atualmente em funcionamento:
+
+
+        $ express lab0203
+
+           create : lab0203
+           create : lab0203/package.json
+           create : lab0203/app.js
+           create : lab0203/public
+           create : lab0203/public/javascripts
+           create : lab0203/public/images
+           create : lab0203/routes
+           create : lab0203/routes/index.js
+           create : lab0203/routes/users.js
+           create : lab0203/public/stylesheets
+           create : lab0203/public/stylesheets/style.css
+           create : lab0203/views
+           create : lab0203/views/index.jade
+           create : lab0203/views/layout.jade
+           create : lab0203/views/error.jade
+           create : lab0203/bin
+           create : lab0203/bin/www
+
+    ---
+    # Gerador de aplicativos do Express
+
+    Em seguida instale as dependências:
+
+
+        $ cd lab0203
+        $ npm install
+
+    No MacOS ou Linux, execute o aplicativo com este comando:
+
+
+        $ DEBUG=lab0203:* npm start
+
+    No Windows, use este comando:
+
+        > set DEBUG=lab0203:* & npm start
+
+    Em seguida carregue http://localhost:3000/ no seu navegador para acessar o aplicativo.
+
+    ---
+    # Gerador de aplicativos do Express
+
+    O aplicativo gerado possui a seguinte estrutura de diretórios:
+
+        .
+        ├── app.js
+        ├── bin
+        │   └── www
+        ├── package.json
+        ├── public
+        │   ├── images
+        │   ├── javascripts
+        │   └── stylesheets
+        │       └── style.css
+        ├── routes
+        │   ├── index.js
+        │   └── users.js
+        └── views
+            ├── error.jade
+            ├── index.jade
+            └── layout.jade
+
+        7 directories, 9 files
+
+    ---
+    # Roteamento Básico
+
+    O Roteamento refere-se à determinação de como um aplicativo responde a uma solicitação do cliente por um endpoint específico, que é uma URI (ou caminho) e um método de solicitação HTTP específico (GET, POST, e assim por diante).
+
+    Cada rota pode ter uma ou mais funções de manipulação, que são executadas quando a rota é correspondida.
+
+    A definição de rotas aceita a seguinte estrutura:
+
+        app.METHOD(PATH, HANDLER)
+
+    Onde:
+
+    - _app_ é uma instância do express.
+    - _METHOD_ é um método de solicitação HTTP.
+    - _PATH_ é um caminho no servidor.
+    - _HANDLER_ é a função executada quando a rota é correspondida.
+
+    ---
+    # Roteamento Básico
+
+    Os seguintes exemplos ilustram a definição de rotas simples.
+
+    Responder com Hello World! na página inicial:
+
+
+        app.get('/', function (req, res) {
+          res.send('Hello World!');
+        });
+
+    Responder a uma solicitação POST na rota raiz (/) com a página inicial do aplicativo:
+
+
+        app.post('/', function (req, res) {
+          res.send('Got a POST request');
+        });
+
+    ---
+    # Roteamento Básico
+
+    Responder a uma solicitação PUT para a rota /user:
+
+
+        app.put('/user', function (req, res) {
+          res.send('Got a PUT request at /user');
+        });
+
+    Responder a uma solicitação DELETE para a rota /user:
+
+
+        app.delete('/user', function (req, res) {
+          res.send('Got a DELETE request at /user');
+        });
+
+    ---
+    # Roteamento Básico
+
+    Existe um método de roteamento especial, app.all(), que não é derivado de nenhum método HTTP. Este método é usado para carregar funções de middleware em um caminho para todos os métodos de solicitação.
+
+    No exemplo a seguir, o manipulador irá ser executado para solicitações para “/secret” se você estiver usando GET, POST, PUT, DELETE, ou qualquer outro método de solicitação HTTP que é suportado no módulo http.
+
+
+        app.all('/secret', function (req, res, next) {
+            console.log('Accessing the secret section ...');
+            next(); // pass control to the next handler
+        });
+
+
+    ---
+    # Caminhos de rota
+
+    Caminhos de rota, em combinação com os métodos de solicitação, definem os terminais em que as solicitações podem ser feitas. Caminhos de rota podem ser sequências de caracteres, padrões de sequência, ou expressões regulares.
+
+    Aqui estão alguns exemplos de caminhos de rota baseados em sequências de caracteres
+
+    Este caminho de rota corresponde a solicitações à rota raiz, /.
+
+
+        app.get('/', function (req, res) {
+          res.send('root');
+        });
+
+    ---
+    # Caminhos de rota
+    Este caminho de rota irá corresponder a solicitações ao /about.
+
+
+        app.get('/about', function (req, res) {
+          res.send('about');
+        });
+
+    Este caminho de rota irá corresponder a solicitações ao /random.text.
+
+
+        app.get('/random.text', function (req, res) {
+          res.send('random.text');
+        });
+
+    > _Os caracteres ?, +, *, e () são subconjuntos de suas contrapartes em expressões regulares._ 
+    > _O hífen (-) e o ponto (.) são interpretados literalmente por caminhos baseados em sequências de caracteres._ 
+
+
+    ---
+    # Caminhos de rota
+
+    Exemplos de caminhos de rota baseados em expressões regulares:
+
+    Este caminho de rota irá corresponder a qualquer coisa com um “a” no nome.
+
+
+        app.get(/a/, function(req, res) {
+            res.send('/a/');
+        });
+
+    Este caminho de rota irá corresponder a butterfly e dragonfly, mas não a butterflyman, dragonfly man, e assim por diante.
+
+
+        app.get(/.*fly$/, function(req, res) {
+            res.send('/.*fly$/');
+        });
+
+    ---
+    # Métodos de resposta
+
+    Os métodos do objeto de resposta (res) na seguinte tabela podem enviar uma resposta ao cliente, e finalizar o ciclo solicitação-resposta. Se nenhum destes métodos forem chamados a partir de um manipulador de rota, a solicitação do cliente será deixada em suspenso.
+
+    - res.download() - Solicita que seja efetuado o download de um arquivo
+    - res.end() -  Termina o processo de resposta.
+    - res.json() - Envia uma resposta JSON.
+    - res.jsonp() Envia uma resposta JSON com suporta ao JSONP.
+    - res.redirect() - Redireciona uma solicitação.
+    - res.render() -   Renderiza um modelo de visualização.
+    - res.send() - Envia uma resposta de vários tipos.
+    - res.sendFile    Envia um arquivo como um fluxo de octeto.
+    - res.sendStatus() -   Configura o código do status de resposta e envia a sua representação em sequência de caracteres como o corpo de resposta.
+
+    ---
+    # app.route()
+
+    É possível criar manipuladores de rota encadeáveis para um caminho de rota usando o app.route(). Como o caminho é especificado em uma localização única, criar rotas modulares é útil, já que reduz redundâncias e erros tipográficos. Para obter mais informações sobre rotas, consulte: documentação do Router().
+
+    Aqui está um exemplo de manipuladores de rotas encadeáveis que são definidos usando app.route().
+
+
+        app.route('/book')
+          .get(function(req, res) {
+            res.send('Get a random book');
+          })
+          .post(function(req, res) {
+            res.send('Add a book');
+          })
+          .put(function(req, res) {
+            res.send('Update the book');
+          });
+
+    ---
+    # express.Router
+
+    Use a classe express.Router para criar manipuladores de rota modulares e montáveis. Uma instância de Router é um middleware e sistema de roteamento completo; por essa razão, ela é frequentemente referida como um “mini-aplicativo”
+
+    O seguinte exemplo cria um roteador como um módulo, carrega uma função de middleware nele, define algumas rotas, e monta o módulo router em um caminho no aplicativo principal.
+
+
+    ---
+    # express.Router
+
+    Crie um arquivo de roteador com um arquivo chamado clientes.js no diretório do aplicativo, com o seguinte conteúdo:
+
+
+        var express = require('express');
+        var router = express.Router();
+
+        // middleware that is specific to this router
+        router.use(function timeLog(req, res, next) {
+            console.log('Time: ', Date.now());
+            next();
+        });
+        // define the home page route
+        router.get('/', function(req, res) {
+            res.send('Clientes - Home');
+        });
+        // define the about route
+        router.get('/about', function(req, res) {
+            res.send('Sobre -  Clientes');
+        });
+
+        module.exports = router;
+    ---
+    # express.Router
+
+    Em seguida, carregue o módulo roteador no aplicativo:
+
+
+        var clientes = require('./clientes');
+        ...
+        app.use('/clientes', clientes);
+
+    O aplicativo será agora capaz de manipular solicitações aos caminhos /clientes e /clientes/about, assim como chamar a função de middleware timeLog que é específica para a rota.
+
+
+    ---
+    # Usando middlewares
+
+    O Express é uma estrutura web de roteamento e middlewares que tem uma funcionalidade mínima por si só: Um aplicativo do Express é essencialmente uma série de chamadas de funções de middleware.
+
+    Funções de Middleware são funções que tem acesso ao objeto de solicitação (req), o objeto de resposta (res), e a próxima função de middleware no ciclo solicitação-resposta do aplicativo. A próxima função middleware é comumente denotada por uma variável chamada next.
+
+    Funções de middleware podem executar as seguintes tarefas:
+
+    - Executar qualquer código.
+    - Fazer mudanças nos objetos de solicitação e resposta.
+    - Encerrar o ciclo de solicitação-resposta.
+    - Chamar a próxima função de middleware na pilha.
+
+    ---
+    # Usando middlewares
+
+    Se a atual função de middleware não terminar o ciclo de solicitação-resposta, ela precisa chamar next() para passar o controle para a próxima função de middleware. Caso contrário, a solicitação ficará suspensa.
+
+    Um aplicativo Express pode usar os seguintes tipos de middleware:
+
+     - Middleware de nível do aplicativo
+     - Middleware de nível de roteador
+     - Middleware de manipulação de erros
+     - Middleware integrado
+     - Middleware de Terceiros
+
+    É possível carregar middlewares de nível de roteador e de nível do aplicativo com um caminho de montagem opcional. É possível também carregar uma série de funções de middleware juntas, o que cria uma sub-pilha do sistema de middleware em um ponto de montagem.
+
+    ---
+    # Middleware de nível do aplicativo
+
+    Vincule middlewares de nível do aplicativo a uma instância do objeto app usando as funções app.use() e app.METHOD(), onde METHOD é o método HTTP da solicitação que a função de middleware manipula (como GET, PUT, ou POST) em letras minúsculas.
+
+    Este exemplo mostra uma função de middleware sem um caminho de montagem. A função é executada sempre que o aplicativo receber uma solicitação.
+
+        var app = express();
+
+        app.use(function (req, res, next) {
+          console.log('Time:', Date.now());
+          next();
+        });
+
+    ---
+    # Middleware de nível do aplicativo
+
+    Este exemplo mostra uma função de middleware montada no caminho /user/:id. A função é executada para qualquer tipo de solicitação HTTP no caminho /user/:id.
+
+
+        app.use('/user/:id', function (req, res, next) {
+          console.log('Request Type:', req.method);
+          next();
+        });
+
+    Este exemplo mostra uma rota e sua função manipuladora (sistema de middleware). A função manipula solicitações GET ao caminho /user/:id.
+
+
+        app.get('/user/:id', function (req, res, next) {
+          res.send('USER');
+        });
+
+    ---
+    # Middleware de nível do aplicativo
+
+    Aqui está um exemplo de carregamento de um série de funções de middleware em um ponto de montagem, com um caminho de montagem. Ele ilustra uma sub-pilha de middleware que imprime informações de solicitação para qualquer tipo de solicitação HTTP no caminho /user/:id.
+
+
+        app.use('/user/:id', function(req, res, next) {
+          console.log('Request URL:', req.originalUrl);
+          next();
+        }, function (req, res, next) {
+          console.log('Request Type:', req.method);
+          next();
+        });
+
+    ---
+    # Middleware de nível do aplicativo
+
+    Manipuladores de rota permitem a você definir várias rotas para um caminho. O exemplo abaixo define duas rotas para solicitações GET no caminho /user/:id. A segunda rota não irá causar nenhum problema, mas ela nunca será chamada pois a primeira rota termina o ciclo solicitação-resposta.
+
+    Este exemplo mostra uma sub-pilha de middleware que manipula solicitações GET no caminho /user/:id.
+
+
+        app.get('/user/:id', function (req, res, next) {
+          console.log('ID:', req.params.id);
+          next();
+        }, function (req, res, next) {
+          res.send('User Info');
+        });
+
+        // handler for the /user/:id path, which prints the user ID
+        app.get('/user/:id', function (req, res, next) {
+          res.end(req.params.id);
+        });
+
+    ---
+    # Middleware de nível do aplicativo
+
+    Para pular o restante das funções de middleware de uma pilha de middlewares do roteador, chame next('route') para passar o controle para a próxima rota. NOTA: O next('route') irá funcionar apenas em funções de middleware que são carregadas usando as funções app.METHOD() ou router.METHOD().
+
+    Este exemplo mostra uma sub-pilha de middleware que manipula solicitações GET no caminho /user/:id.
+
+
+        app.get('/user/:id', function (req, res, next) {
+          // if the user ID is 0, skip to the next route
+          if (req.params.id == 0) next('route');
+          // otherwise pass the control to the next middleware function in this stack
+          else next(); //
+        }, function (req, res, next) {
+          // render a regular page
+          res.render('regular');
+        });
+
+        // handler for the /user/:id path, which renders a special page
+        app.get('/user/:id', function (req, res, next) {
+          res.render('special');
+        });
+
+    ---
+    # Middleware de nível de roteador
+
+    Middlewares de nível de roteador funcionam da mesma forma que os middlewares de nível do aplicativo, mas estão vinculados a uma instância do express.Router().
+
+
+        var router = express.Router();
+
+    Carregue os middlewares de nível de roteador usando as funções router.use() e router.METHOD().
+    ---
+    # Middleware de nível de roteador
+    
+    O seguinte código de exemplo replica o sistema de middleware que é mostrado acima para o middleware de nível do aplicativo, usando um middleware de nível de roteador:
+
+
+        var app = express();
+        var router = express.Router();
+
+        // a middleware function with no mount path. This code is executed for 
+        // every request to the router
+        router.use(function (req, res, next) {
+          console.log('Time:', Date.now());
+          next();
+        });
+
+        // a middleware sub-stack shows request info for 
+        // any type of HTTP request to the /user/:id path
+        router.use('/user/:id', function(req, res, next) {
+          console.log('Request URL:', req.originalUrl);
+          next();
+        }, function (req, res, next) {
+          console.log('Request Type:', req.method);
+          next();
+        });
+
+    ---
+    # Middleware de nível de roteador
+
+        // a middleware sub-stack that handles GET requests to the /user/:id path
+        router.get('/user/:id', function (req, res, next) {
+        // if the user ID is 0, skip to the next router
+        if (req.params.id == 0) next('route');
+        // otherwise pass control to the next middleware function in this stack
+        else next(); //
+        }, function (req, res, next) {
+        // render a regular page
+        res.render('regular');
+        });
+
+        // handler for the /user/:id path, which renders a special page
+        router.get('/user/:id', function (req, res, next) {
+        console.log(req.params.id);
+        res.render('special');
+        });
+
+        // mount the router on the app
+        app.use('/', router);
+    ---
+    # Middleware de manipulação de erros
+
+    > _Middlewares de manipulação de erros sempre levam quatro argumentos. Você deve fornecer quatro argumentos para identificá-lo como uma função de middleware de manipulação de erros. Mesmo se você não precisar usar o objeto next, você deve especificá-lo para manter a assinatura. Caso contrário, o objeto next será interpretado como um middleware comum e a manipulação de erros falhará._
+
+    Defina funções de middleware de manipulação de erros da mesma forma que outras funções de middleware, exceto que com quatro argumentos ao invés de três, especificamente com a assinatura (err, req, res, next)):
+
+
+        app.use(function(err, req, res, next) {
+          console.error(err.stack);
+          res.status(500).send('Something broke!');
+        });
+
+    ---
+    # Middleware integrado
+
+    Desde a versão 4.x, o Express não depende mais do Connect. Com exceção da express.static, todas as funções de middleware que eram previamente incluídas com o Express estão agora em módulos separados. Visualize a lista de funções de middleware.
+
+        express.static(root, [options])
+
+    A única função de middleware integrada no Express é a express.static. Esta função é baseada no serve-static, e é responsável por entregar os ativos estáticos de um aplicativo do Express.
+
+    O argumento root especifica o diretório raiz a partir do qual entregar os ativos estáticos.
+
+    ---
+    # Middleware integrado
+
+    Aqui está um exemplo de uso da função de middleware express.static com um objeto options elaborado:
+
+
+        var options = {
+          dotfiles: 'ignore',
+          etag: false,
+          extensions: ['htm', 'html'],
+          index: false,
+          maxAge: '1d',
+          redirect: false,
+          setHeaders: function (res, path, stat) {
+            res.set('x-timestamp', Date.now());
+          }
+        }
+
+        app.use(express.static('public', options));
+    É possível ter mais do que um diretório estático por aplicativo:
+
+        app.use(express.static('public'));
+        app.use(express.static('uploads'));
+        app.use(express.static('files'));
+    ---
+    # Middleware de Terceiros
+
+    Use middlewares de terceiros para incluir funcionalidades aos aplicativos do Express
+
+    Instale o módulo Node.js para a funcionalidade requerida, em seguida carregue-a no seu aplicativo no nível do aplicativo ou no nível de roteador.
+
+    O exemplo a seguir ilustra a instalação e carregamento da função de middleware para análise sintática de cookies cookie-parser.
+
+
+        $ npm install cookie-parser
+
+
+        var express = require('express');
+        var app = express();
+        var cookieParser = require('cookie-parser');
+
+        // load the cookie-parsing middleware
+        app.use(cookieParser());
+
+    ---
+    # Entregando arquivos estáticos no Express
+
+    Para entregar arquivos estáticos como imagens, arquivos CSS, e arquivos JavaScript, use a função de middleware express.static integrada no Express.
+
+    Passe o nome do diretório que contém os ativos estáticos para a função de middleware express.static para iniciar a entregar os arquivos diretamente. Por exemplo, use o código a seguir para entregar imagens, arquivos CSS, e arquivos JavaScript em um diretório chamado public:
+
+
+        app.use(express.static('public'));
+
+    Agora, é possível carregar os arquivos que estão no diretório public:
+
+
+        http://localhost:3000/images/kitten.jpg
+        http://localhost:3000/css/style.css
+        http://localhost:3000/js/app.js
+        http://localhost:3000/images/bg.png
+        http://localhost:3000/hello.html
+
+    > _O Express consulta os arquivos em relação ao diretório estático, para que o nome do diretório estático não faça parte da URL._  
+          
+    ---
+    # Entregando arquivos estáticos no Express
+
+    Para usar vários diretórios de ativos estáticos, chame a função de middleware express.static várias vezes:
+
+
+        app.use(express.static('public'));
+        app.use(express.static('files'));
+
+    O Express consulta os arquivos na ordem em que você configurar os diretórios estáticos com a função de middleware express.static.
+
+    Para criar um prefixo de caminho virtual (onde o caminho não existe realmente no sistema de arquivos) para arquivos que são entregues pela função express.static, especifique um caminho de montagem para o diretório estático, como mostrado abaixo:
+
+
+        app.use('/static', express.static('public'));
+
+    ---
+    # Entregando arquivos estáticos no Express
+
+    Agora, é possível carregar os arquivos que estão no diretório public a partir do prefixo do caminho /static.
+
+
+        http://localhost:3000/static/images/kitten.jpg
+        http://localhost:3000/static/css/style.css
+        http://localhost:3000/static/js/app.js
+        http://localhost:3000/static/images/bg.png
+        http://localhost:3000/static/hello.html
+
+    Entretanto, o caminho fornecido para a função express.static é relativa ao diretório a partir do qual você inicia o seu node de processo. Se você executar o aplicativo express a partir de outro diretório, é mais seguro utilizar o caminho absoluto do diretório para o qual deseja entregar.
+
+
+        app.use('/static', express.static(__dirname + '/public'));
+
   </textarea>
   <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
   </script>
