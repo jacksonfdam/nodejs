@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>noSQL</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+    body { font-family: 'Droid Serif'; }
+    h1, h2, h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+    .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    .remark-slide-content{background: transparent;}
+    .remark-slide {
+      background: url(http://lab.empirio.no/media/images/background.png) #fff center center no-repeat;
+      background-size: cover;
+    }
+    .remark-slide-number{color: #fff;font-size: 1rem;font-weight: bold;}
+
+  </style>
+</head>
+<body>
+  <textarea id="source" style="display:none;">
+
+    class: center, middle
+
+    # noSQL
+
+    
+    ![noSQL](http://www.infowester.com/img_art/bd-nosql.jpg)
+    
+
+
+    ---
+    # O que é noSQL?
+    
+    NoSQL é um termo usado para descrever bancos de dados não relacionais de alto desempenho. Os bancos de dados NoSQL usam diversos modelos de dados, incluindo documentos, gráficos, chave-valor e colunares. Bancos de dados NoSQL são amplamente reconhecidos pela facilidade de desenvolvimento, desempenho escalável, alta disponibilidade e resiliência. 
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - Modelo de dados
+    
+    O modelo relacional normaliza dados em estruturas tabulares conhecidas como tabelas, que consistem em linhas e colunas.  Um schema define estritamente as tabelas, colunas, índices, relações entre tabelas e outros elementos do banco de dados.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - Propriedades ACID
+
+    Sistemas de gerenciamento de bancos de dados relacionais (RDBMS) tradicionais são compatíveis com um conjunto de propriedades definido pela sigla ACID: Atomicidade, Consistência, Isolamento e Durabilidade.  Atomicidade significa “tudo ou nada” – uma transação é concluída integralmente ou não.  Consistência significa que quando uma transação é realizada, os dados devem estar em conformidade com o schema do banco de dados.  Isolamento requer que as transações simultâneas sejam executadas separadas uma da outra.  Durabilidade é a capacidade de se recuperar de uma falha do sistema ou falta de energia inesperada para o último estado conhecido.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - Desempenho
+
+    O desempenho normalmente depende do subsistema do disco.  Otimização de consultas, índices e estrutura de tabela é necessária para alcançar máximo desempenho.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - Escala
+
+    Mais fácil de aumentar a escala "verticalmente" com hardware mais rápido.  Outros investimentos são necessários para tabelas relacionais para abranger um sistema distribuído.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - APIs
+
+    As solicitações para armazenar e recuperar dados são comunicadas usando consultas compatíveis com structured query language (SQL).  Essas consultas são analisadas e executadas por sistemas de gerenciamento de bancos de dados relacionais (RDBMS).
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados relacional - Ferramentas
+
+    Os bancos de dados SQL normalmente oferecem um rico conjunto de ferramentas para simplificar o desenvolvimento de aplicações orientadas ao banco de dados.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - Modelo de dados
+
+    Bancos de dados não relacionais (NoSQL) normalmente não aplicam um schema.  Uma “chave hash” é normalmente usada para recuperar valores, conjuntos de colunas ou documentos semiestruturados JSON, XML ou outros que contenham atributos de itens relacionados.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - Propriedades ACID
+
+    Bancos de dados NoSQL normalmente trocam algumas propriedades ACID de sistemas de gerenciamento de bancos de dados relacionais (RDBMS) por um modelo de dados mais flexível que escala horizontalmente. Essas características fazem dos bancos de dados NoSQL uma excelente opção em situações em que os RDBMS deparam com desafios de arquitetura e precisam solucionar uma combinação de gargalos de desempenho, escalabilidade, complexidade operacional e custos crescentes de administração e suporte.
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - Desempenho
+
+    Desempenho geralmente é uma função do tamanho do cluster do hardware subjacente, da latência de rede e da aplicação que faz a chamada.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - Escala
+
+    Projetado para aumentar a escala "horizontalmente" usando clusters distribuídos de hardware de baixo custo para aumentar a transferência sem aumentar a latência.
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - APIs
+
+    APIs baseadas em objetos permitem que desenvolvedores de aplicações armazenem e restaurem facilmente estruturas de dados na memória.  “Chaves hash” permitem que as aplicações procurem pares de chave-valor, conjuntos de colunas ou documentos semiestruturados contendo objetos de atributos de aplicação serializados.
+
+
+    ---
+    # SQL vs NoSQL Database Comparison
+    ## Banco de dados NoSQL - Ferramentas
+
+    Os bancos de dados NoSQL normalmente oferecem ferramentas para gerenciar clusters e escalabilidade.  As aplicações são a interface principal com os dados subjacentes.
+
+    ---
+    # Organização
+
+    Os bancos NoSQL são subdivididos pelo seu núcleo, ou seja, como ele trabalha com os dados. Esses núcleos são Wide Column Store/Column Families, Document Store, Key Value/Tuple Store, Eventually Consistent Key Value Store, Graph Databases, Object Databases, Grid Database
+    Solutions, XML Databases. Lista retirada de http://nosql-database.org/
+    
+    ---
+    # Key/Value Store
+
+    Esse é o tipo de banco de dados NoSQL mais simples, o conceito dele é uma chave e um valor para essa chave. Mas ele é o que aguenta mais carga de dados. Esses tipos de bancos de dados são o que tem a maior escalabilidade.
+
+    - Berkeley
+    - DB
+    - Tokyo
+    - Cabinet
+    - Project
+    - Voldermort
+    - MemcacheDB
+    - SimpleBD
+ 
+    ---
+    # Wide Columns Store
+ 
+    Fortemente inspirados pelo BigTable, do Google, eles suportam várias linhas e colunas, além de permitir subcolunas.
+
+    Além do BigTable, outros que usam essa tecnologia são:
+
+    - HBase (Apache)
+    - HiperTable
+    - Cassandra (Apache)
+
+    ---
+    # Document Store
+
+    Baseado em documentos XML ou JSON, podem ser localizados pelo seu id único ou por qualquer registro que tenha no documento.
+
+    - CouchDB (Apache)
+    - MongoDB
+    - Riak
+    - RavenDB
+ 
+    ---
+    # Graph Store
+
+    Com uma complexibilidade maior, esses bancos de dados guardam objetos, e não registros como os outros tipos de NoSQL. A busca desses itens é feita pela navegação desses objetos.
+
+     - Neo4J
+     - InfoGrid
+     - HyperGraphDB
+     - BigData
+
+ 
+    ---
+    # Column Oriented  Store
+
+    Esses são bancos de dados relacionais, porém apresentam características do NoSQL. A principal diferença deles é que os dados são armazenados em colunas, ajudando na escalabilidade.
+
+    - Vertica
+    - MonetDB
+    - LucidDB
+    - Infobright
+    - Ingres/Vectorwise
+ 
+    ---
+    # Qual usar?
+
+    Como apresentado no gráfico abaixo, os key-value aguentam maior quantidade de registros, enquanto os grafos são mais complexos.
+
+    ![](http://conteudo.imasters.com.br/17043/1.jpg)
+
+ 
+    ---
+    # Qual Usar?
+
+    Em um projeto, não necessariamente você precisa usar só um banco de dados Nosql, é possível usá-lo em conjunto com qualquer outro banco de dados. Os bancos Nosql são indicados para grandes cargas de dados, exigência de velocidade na consulta e escrita em grandes volumes de dados.
+
+    Ainda segundo o gráfico, 90% dos sites atualmente podem usar sem problemas algum os bancos de dados tradicionais, pois o ganho de performance não seria tão significativo; para os 10% restantes é aconselhável o uso do NoSQL. 
+
+
+    ---
+    # Qual Usar?
+
+    A idéia que o conceito NOSQL nos passa é que ele não pode ser generalizado como a resposta de todos seus problemas,
+    mas sim para problemas específicos.    
+
+    ---
+
+    # Resumindo - Banco de dados Relacionais
+
+    ***O que é:*** baseia-se em que todos os dados estão guardados em tabelas, pelo conceito de entidade e relacionamento. Os dados são separados de forma única, tentando diminuir ao máximo a redundância, pois a informação é criada pelo conjunto dos dados, onde são as relações entre as tabelas que fazem esse serviço. 
+    
+    ***Características:*** tabelas, schema definido, hierarquia, redundância mínima, entidade e relacionamento, formas normais, transações ACID (Atomicidade, Consistência, Isolamento, Durabilidade).
+
+    ***Necessidades:*** sistemas locais,financeiros, corporativos; segurança da informação; consistência dos dados. 
+
+    ***Marcas:*** DB2,Firebird,InterBase,Microsoft SQL Server, MySQL,Oracle,PostgreSQL
+
+    ---
+
+    # Resumindo - Banco de dados NoSQL
+
+    ***O que é:*** uma solução alternativa para os bancos de dados relacionais, possuem uma alta escalabilidade e desempenho    
+    
+    ***Características:*** registros, schema-free, tolerância à falha, escalabilidade, clusterização, mapreduce, sharding.
+
+    ***Necessidades:*** sistemas em nuvem, análises sociais, alta escalabilidade, performance na consulta/escrita, replicação.
+
+
+  </textarea>
+  <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+  </script>
+  <script>
+    var slideshow = remark.create();
+  </script>
+</body>
+</html>
