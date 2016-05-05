@@ -1,0 +1,15 @@
+{
+  "name": "lab0401",
+  "version": "1.0.0",
+  "description": "Lab 0401 - Socket IO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jackson Mafra",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.6"
+  }
+}
