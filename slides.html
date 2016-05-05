@@ -1530,6 +1530,192 @@
 
 
         app.use('/static', express.static(__dirname + '/public'));
+    
+    ---
+    
+    # Integração de Banco de dados
+
+    A inclusão da capacidade de se conectar à banco de dados em aplicativos do Express é apenas uma questão de se carregar um driver Node.js apropriado para o banco de dados no seu aplicativo. Este documento explica brevemente como incluir e utilizar alguns dos mais populares módulos do Node.js para sistemas de bancos de dados no seu aplicativo do Express:
+
+     - Cassandra
+     - CouchDB
+     - LevelDB
+     - MySQL
+     - MongoDB
+     - Neo4j
+     - PostgreSQL
+     - Redis
+     - SQLite
+     - ElasticSearch
+
+
+    ---
+    
+    # LevelDB
+
+    Módulo: [levelup](https://github.com/Level/levelup?_ga=1.116155779.422133707.1462294138) Instalação
+
+
+        $ npm install level levelup leveldown
+
+    Exemplo
+
+
+        var levelup = require('levelup');
+        var db = levelup('./mydb');
+
+        db.put('name', 'LevelUP', function (err) {
+
+          if (err) return console.log('Ooops!', err);
+          db.get('name', function (err, value) {
+            if (err) return console.log('Ooops!', err);
+            console.log('name=' + value);
+          });
+
+        });
+
+    ---
+    
+    # MySQL
+
+    Módulo: mysql Instalação
+
+
+        $ npm install mysql
+
+    Exemplo
+
+        var mysql      = require('mysql');
+        var connection = mysql.createConnection({
+          host     : 'localhost',
+          user     : 'dbuser',
+          password : 's3kreee7'
+        });
+
+        connection.connect();
+
+        connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+          if (err) throw err;
+          console.log('The solution is: ', rows[0].solution);
+        });
+
+        connection.end();
+
+    ---
+    
+    # MongoDB
+
+    Módulo: mongodb Instalação
+
+        $ npm install mongodb
+
+    Exemplo
+
+
+    var MongoClient = require('mongodb').MongoClient;
+
+    MongoClient.connect('mongodb://localhost:27017/animals', function(err, db) {
+      if (err) {
+        throw err;
+      }
+      db.collection('mammals').find().toArray(function(err, result) {
+        if (err) {
+          throw err;
+        }
+        console.log(result);
+      });
+    });
+
+    Se desejar um driver de modelo de objeto para o MongoDB, consulte em Mongoose.
+
+
+    ---
+    
+    # Redis
+
+    Módulo: redis Instalação
+
+        $ npm install redis
+
+    Exemplo
+
+    var client = require('redis').createClient();
+
+    client.on('error', function (err) {
+      console.log('Error ' + err);
+    });
+
+    client.set('string key', 'string val', redis.print);
+    client.hset('hash key', 'hashtest 1', 'some value', redis.print);
+    client.hset(['hash key', 'hashtest 2', 'some other value'], redis.print);
+
+    client.hkeys('hash key', function (err, replies) {
+
+      console.log(replies.length + ' replies:');
+      replies.forEach(function (reply, i) {
+        console.log('    ' + i + ': ' + reply);
+      });
+
+      client.quit();
+
+    });
+
+    ---
+    
+    # SQLite
+
+    Módulo: sqlite3 Instalação
+
+        $ npm install sqlite3
+
+    Exemplo
+
+
+        var sqlite3 = require('sqlite3').verbose();
+        var db = new sqlite3.Database(':memory:');
+
+        db.serialize(function() {
+
+          db.run('CREATE TABLE lorem (info TEXT)');
+          var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
+
+          for (var i = 0; i < 10; i++) {
+            stmt.run('Ipsum ' + i);
+          }
+
+          stmt.finalize();
+
+          db.each('SELECT rowid AS id, info FROM lorem', function(err, row) {
+            console.log(row.id + ': ' + row.info);
+          });
+        });
+
+        db.close();
+
+    ---
+    
+    # MongoDB no Node.js utilizando Mongoose
+
+    O Mongoose possui uma interfacemuito fácil de aprender. Em poucos códigos, você vai conseguir criar uma conexão no banco de dados e executar uma query ou persistir dados. Com o MongoDB instalado e funcionando em sua máquina, vamos instalar omódulo mongoose, que é um framework responsável pormapear objetos do Node.js para MongoDB.
+
+
+    ---
+    
+    # Mongoose
+
+        var express = require('express')
+        , app = express()
+        , mongoose = require('mongoose');
+
+        global.db = mongoose.connect('mongodb://localhost/agenda');
+
+    Quando é executada a função mongoose.connect cria-se uma conexão com o banco de dados MongoDB para o Node.js. Como o MongoDB é schemaless, na primeira vez que a aplicação se conecta com o banco através da url 'mongodb://localhost/agenda' automaticamente em run-time é criada uma base de dados com o nome agenda.
+
+    ---
+    
+    # Modelando com Mongoose
+
+    O Mongoose é um módulo focado para a criação de models, isso significa que com ele criaremos objetos persistentes modelando seus atributos através do objeto mongoose.Schema. Após a implementação de um modelo, temos que registrálo no banco de dados, utilizando a função db.model('nome-do-model',modelSchema), que recebeummodelo e cria sua respectiva collection no MongoDB.
 
   </textarea>
   <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
