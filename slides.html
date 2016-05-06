@@ -1612,19 +1612,19 @@
     Exemplo
 
 
-    var MongoClient = require('mongodb').MongoClient;
+        var MongoClient = require('mongodb').MongoClient;
 
-    MongoClient.connect('mongodb://localhost:27017/animals', function(err, db) {
-      if (err) {
-        throw err;
-      }
-      db.collection('mammals').find().toArray(function(err, result) {
-        if (err) {
-          throw err;
-        }
-        console.log(result);
-      });
-    });
+        MongoClient.connect('mongodb://localhost:27017/animals', function(err, db) {
+          if (err) {
+            throw err;
+          }
+          db.collection('mammals').find().toArray(function(err, result) {
+            if (err) {
+              throw err;
+            }
+            console.log(result);
+          });
+        });
 
     Se desejar um driver de modelo de objeto para o MongoDB, consulte em Mongoose.
 
@@ -1639,26 +1639,26 @@
 
     Exemplo
 
-    var client = require('redis').createClient();
+        var client = require('redis').createClient();
 
-    client.on('error', function (err) {
-      console.log('Error ' + err);
-    });
+        client.on('error', function (err) {
+          console.log('Error ' + err);
+        });
 
-    client.set('string key', 'string val', redis.print);
-    client.hset('hash key', 'hashtest 1', 'some value', redis.print);
-    client.hset(['hash key', 'hashtest 2', 'some other value'], redis.print);
+        client.set('string key', 'string val', redis.print);
+        client.hset('hash key', 'hashtest 1', 'some value', redis.print);
+        client.hset(['hash key', 'hashtest 2', 'some other value'], redis.print);
 
-    client.hkeys('hash key', function (err, replies) {
+        client.hkeys('hash key', function (err, replies) {
 
-      console.log(replies.length + ' replies:');
-      replies.forEach(function (reply, i) {
-        console.log('    ' + i + ': ' + reply);
-      });
+          console.log(replies.length + ' replies:');
+          replies.forEach(function (reply, i) {
+            console.log('    ' + i + ': ' + reply);
+          });
 
-      client.quit();
+          client.quit();
 
-    });
+        });
 
     ---
     
@@ -1691,6 +1691,78 @@
         });
 
         db.close();
+
+    ---
+    
+    # Migrando do MySQL para Mongo
+
+    Baseado no [SQL to MongoDB Mapping Chart](https://docs.mongodb.org/manual/reference/sql-comparison/)
+
+        SQL Terms/Concepts      MongoDB Terms/Concepts
+    
+        database                database
+        table                   collection
+        row                     document or BSON document
+        column                  field
+        index                   index
+        table joins             embedded documents and linking
+        primary key             primary key
+        aggregation             aggregation pipeline
+        (e.g. group by) 
+
+
+    ---
+    
+    # Migrando do MySQL para Mongo
+
+
+    ### Criando uma coleção
+
+        db.createCollection( "agenda" )
+
+    ### Inseriando registro na coleção
+
+        db.agenda.insert({nome:"Tiozinho" , email: "tio@gmail.com" , telefone: "9999-9999" });    
+
+    ### Buscando registro na coleção
+
+        //Lista todos os registros
+        db.agenda.find()
+
+        //Lista apenas o definido no parâmetro
+        db.agenda.find({id:1}) // {id:1} é o parâmetro
+
+    ---
+    
+    # Migrando do MySQL para Mongo
+
+    ### Excluindo registro da coleção
+
+        db.agenda.remove({id:1});
+
+    ### Atualizando um registro na coleção
+
+        //Buscando o Tiozinho
+        var agd = db.agenda.find({id:1});
+
+        //Alterando apenas o email
+        agd.email = "tiozinho@gmail.com";
+
+        //Atualizando na coleção
+        db.agenda.save(agd);
+
+    ---
+    
+    # Migrando do MySQL para Mongo
+
+     - drop()
+     - dropDataBase()
+     - update()
+     - count()
+     - limit()
+     - sort()
+
+
 
     ---
     
