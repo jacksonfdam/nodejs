@@ -1790,6 +1790,227 @@
     O Mongoose é um módulo focado para a criação de models, isso significa que com ele criaremos objetos persistentes modelando seus atributos através do objeto mongoose.Schema. Após a implementação de um modelo, temos que registrálo no banco de dados, utilizando a função db.model('nome-do-model',modelSchema), que recebeummodelo e cria sua respectiva collection no MongoDB.
 
 
+    ---
+    
+    # Socket.IO
+
+    O Socket.IO fornece comunicação em tempo real entre seu servidor e clientes do node.js. 
+
+    Para quem não conhece, o WebSocket era parte da especificação do HTML5 que descreve a comunicação bidirecional (envie e recebe mensagens) entre canais através de TCP/IP. Não faz mais parte do HTML5 e ganhou vida própria, sendo o protocolo padronizado pela IETF como RFC 6455 e a API padronizada pela W3C.
+    
+    ---
+    
+    # Socket.IO
+
+    O Socket.IO abstrai e utiliza o WebSocket como o seu principal mecanismo. E se não for compatível com o meu ambiente? Então o próprio Socket.IO se encarrega de providenciar outros mecanismos de transporte, como fallback:
+
+     - Adobe® Flash® Socket
+     - AJAX long polling
+     - AJAX multipart streaming
+     - Forever Iframe
+     - JSONP Polling
+
+    Você não precisa se preocupar, por que tudo é transparente para você! Dá para entender por que o módulo é tão popular – pois garante compatibilidade entre diferentes clientes e servidores, sejam através de dispositivos móveis ou desktops, independente de versão de browser e sistema operacional.
+     
+    ---
+    
+    # E como o WebSocket funciona?
+
+    Basicamente ouvimos e transmitimos mensagens. Neste caso, você tem basicamente dois métodos que vão ditar todo o restante: on e emit. Simples assim. No on você deixa o servidor ou o client aguardando uma mensagem chegar e no emit você transmite esta mensagem.
+
+    ![](https://evenancio.files.wordpress.com/2013/12/websocket-chat.png?w=527)
+
+    ---
+    
+    # TDD e Node.js – Introdução ao Mocha
+
+    Independente da linguagem utilizada ou onde sua aplicação é executada, no cliente (browser) ou servidor, escrever testes é sempre uma ótima prática! Com JavaScript e Node.js não é diferente. Existem vários frameworks que facilitam a escrita, execução e análise dos testes, o que mais me agradou até o momento é o Mocha.
+
+    A instalação do Mocha é simples, utilizamos o NPM que é responsável por fazer o download e instalar o pacote escolhido. Para quem conhece o NuGet disponível para .NET no Visual Studio, o NPM é o equivalente no mundo Node.js.
+
+        npm install mocha
+
+    ---
+    
+    # Mocha
+
+    Após instalado vamos começar com a primeira boa prática. Por padrão o comando mocha procura os arquivos de teste em um diretório chamado test. Então no diretório da sua aplicação crie um diretório chamado test e coloque lá seus arquivos de teste. Podemos agora começar a desenvolver os testes da nossa aplicação, nesse primeiro momento vamos criar dois testes bem simples.
+
+        var assert = require('assert');
+
+        describe('Alguns testes de exemplo', function(){
+            
+            it('2 + 2 deve ser igual a 4', function(){
+                assert.equal(4, 2 + 2);
+            });
+
+            it('2 * 2 deve ser igual a 8 (nota 0 em matemática)', function(){
+                assert.equal(8, 2 * 2);
+            });
+
+        });
+    ---
+    
+    # Mocha
+
+    Na primeira linha do código referenciamos a biblioteca assert que está disponível no Node.js. No exemplo utilizamos só o método assert.equal mas na documentação você encontrará os outros métodos disponíveis.
+
+    Os métodos describe e it fazem parte do Mocha, mais especificamente da API de BDD do Mocha.
+
+    Com o teste criado basta executar o comando mocha no ser Terminal (OSX) ou Command Prompt (Windows) e ver que um teste passou e outro não.
+    
+    ---
+    
+    # Um projeto testável
+
+    Vamos iniciar um projeto simples, mas que tenha a capacidade de mostrar o Mocha atuando. Primeiramente vamos instalar todas as dependências:
+    
+        # Crie um projeto em uma pasta vazia
+        mkdir meu-projeto && cd meu-projeto && npm init
+
+        # Logo após instale o Mocha globalmente
+        sudo npm install -g mocha
+
+        # Criamos as pastas principais do projeto
+        mkdir test lib
+
+        # Assim como o arquivo principal
+        touch index.js test/general-test.js
+
+        # Logo após abra o arquivo general-test.js
+        # com o seu editor favorito
+        vim general-test.js
+ 
+    ---
+    
+    # Mocha
+
+    Nesta aplicação, construiremos uma biblioteca capaz de executar os cálculos que são passados via linha de comando. Primeiramente vamos aos testes: 
+
+    ---
+    
+    # Mocha
+
+        // Vamos usar a lib assert, que já
+        // vem no core do Node.js
+        var assert = require('assert');
+
+        // E também vamos incluir a lib
+        // da calculador, que criaremos mais tarde
+        var calculadora = require('../lib/calculadora');
+
+        // Descrevemos um tópico inicial usando
+        // o método describe() do Mocha
+        describe('Testes gerais da calculadora', function(){
+
+        // Dentro do tópico criamos os testes relacionados
+        // aos mesmos, fazemos isso usando o método it()
+        it('A calculadora deve ser uma função', function(){
+
+            // Usamos o assert.equal() para verificar se
+            // o tipo da variável 'calculadora' realmente
+            // é uma função
+            assert.equal(typeof calculadora, 'function');
+        });
+
+        it('O cálculo 191 * 7 deve ser igual a 1337', function(){
+            assert.equal(calculadora('191 * 7'), 1337);
+        });
+
+        });
+
+    ---
+    
+    # Mocha
+
+    Fácil e rápido, você já pode usar o comando mocha ./test/*-test.js para ver o que está de errado com sua aplicação, ou utilizar o parâmetro –reporter spec para ter um relatório mais agradável. Certamente o teste reclamou da ausência do arquivo../lib/calculadora.js, então vamos criá-lo:
+
+        // Vamos usar o módulo VM para compilar o input
+        // do usuário, lembre-se: evite o eval()
+        var vm = require('vm');
+
+        module.exports = function(calculo){
+
+            // Vamos executar o código que fora passado
+            // e retornar o seu resultado
+            return vm.runInNewContext('(function(){ return ' + calculo + '})()');
+        };
+    
+    ---
+    
+    # Mocha
+
+    Agora, usando o Mocha, seus testes devem passar. Só está faltando o programa principal, vamos editar o index.js:
+
+        var calculador = require('./lib/calculadora');
+        var resultado = calculador(process.argv[2]);
+        console.log(resultado);
+
+    Executando node ./ ‘1 + 1’, você deve ver o output 2 em seu terminal.    
+
+    ---
+    
+    # Monitorando aplicação através de logs
+
+    Quando colocamos um sistema em produção, aumentamos os riscos de acontecerem
+    bugs que não foram identificados durante os testes no desenvolvimento. Isso
+    é normal, e toda aplicação já passou ou vai passar por esta situação. O importante
+    neste caso é ter ummeio demonitorar todo comportamento da aplicação, através de
+    arquivos de logs. Tanto o Express quanto o Socket.IO possuem um middleware para
+    monitorar e gerar logs. Sua instalação é simples, abra o app.js e adicione no topo
+    da stack de configurações do Express a função app.use(express.logger()):
+    
+        app.use(express.logger());
+        app.use(express.json());
+        app.use(express.urlencoded());
+
+    ---
+    
+    # Aplicando Singleton nas conexões do Mongoose
+
+    No Mongoose, apenas aplicaremos o design pattern Singleton para instanciar as conexões
+    do banco de dados. Isso será implementado com o objetivo de garantir que
+    apenas uma única conexão seja instanciada e compartilhada por toda aplicação. No
+    arquivo lib/db_connect.js, codifique aplicando as seguintes mudanças:
+
+        var mongoose = require('mongoose')
+        , single_connection
+        , env_url = {
+            "test": "mongodb://localhost/ntalk_test",
+            "development": "mongodb://localhost/ntalk"
+        };
+        module.exports = function() {
+            var env = process.env.NODE_ENV || "development"
+            , url = env_url[env];
+            if(!single_connection) {
+                single_connection = mongoose.connect(url);
+            }
+            return single_connection;
+        };
+
+    ---
+    
+    # Mantendo o sistema no ar com Forever
+
+    O Node.js é praticamente uma plataforma de baixo nível, com ele temos bibliotecas
+    com acesso direto aos recursos do sistema operacional, e programamos entre diversos
+    protocolos, como por exemplo, o protocolo http. Para trabalhar com http, temos
+    que programar como será o servidor http e também sua aplicação. Quando colocamos
+    uma aplicação Node em produção diversos problemas e bugs são encontrados
+    com o passar do tempo, e quando surge um bug grave o servidor cai, deixando a
+    aplicação fora do ar. De fato, programar em Node.js requer lidar com esses detalhes
+    de servidor.
+
+    ---
+    
+    # Mantendo o sistema no ar com Forever
+
+    O Forever é uma ferramenta que surgiu para resolver esse problema de queda do
+    servidor. Seu objetivo émonitorarumservidor realizando pings a cada curto período
+    predeterminado pelo desenvolvedor. Quando ele detecta que a aplicação está fora do
+    ar, automaticamente ele dá um restart nela. Ele consegue fazer isso por que mantém
+    a aplicação rodando em background no sistema operacional.
+
   </textarea>
   <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
   </script>
