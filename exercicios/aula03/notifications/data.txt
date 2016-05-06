@@ -1,5 +1,10 @@
-data 01
-data 01
-data 01
-data 01
-data 01
+[{
+	"nome": "jackson",
+	"email": "jacksonfdam@gmail.com"
+}, {
+	"nome": "ricardo",
+	"email": "ricardorocha@gmail.com"
+}, {
+	"nome": "ricardo2",
+	"email": "ricardorocha@gmail.com"
+}]

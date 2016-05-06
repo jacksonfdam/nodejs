@@ -24,11 +24,9 @@ io.sockets.on('connection', function(socket) {
     // watching the xml file
     fs.watch(__dirname + '/data.txt', function(curr, prev) {
         // on file change we can read the new xml
-        fs.readFile(__dirname + '/data.txt', function(err, data) {
+        fs.readFile(__dirname + '/data.txt', "utf-8", function(err, data) {
             if (err) throw err;
-            // parsing the new xml data and converting them into json file
-            // adding the time of the last update
-            // send the new data to the client
+            console.log(data);
             socket.volatile.emit('notification', data);
         });
     });
