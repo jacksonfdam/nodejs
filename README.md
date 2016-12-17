@@ -3,6 +3,7 @@
 
 ![NodeJS](https://raw.githubusercontent.com/cerebrobr/adesivos/master/view/nodejs.png)
 
+
 # Curso de NodeJS
 
 1. JavaScript
@@ -15,4 +16,10 @@
 8. Sistemas Real-time
 9. Testes com mocha
 10. Deploy
+
+[Slides](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides.html#1)
+
+[Slides ES6](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-es6.html#1)
+
+[Slides NOSQL](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-nosql.html#1)
 
