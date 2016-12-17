@@ -1,0 +1,8 @@
+{
+  "name": "Exercicio21",
+  "version": "0.0.1",
+  	"description": "Exercicio 21 do curso de Node.js",
+  "dependencies": {
+	"express": "*"
+   }
+}

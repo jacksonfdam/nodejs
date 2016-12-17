@@ -1,0 +1,9 @@
+{
+	"name": "Exercicio22",
+	"description": "Exercicio 22 do curso de Node.js",
+	"version": "0.0.1",
+	"description": "",
+	"dependencies": { 
+		"formidable": "1.0.14"
+	}
+}

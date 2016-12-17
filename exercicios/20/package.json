@@ -1,0 +1,23 @@
+{
+  "name": "Exercicio20",
+  "description": "Exercicio 20 do curso de Node.js",
+  "version": "0.0.1",
+  "maintainers": [
+    {
+      "name": "Jackson F. de A. Mafra",
+      "email": "jacksonfdam@gmail.com",
+      "web": "https://github.com/jacksonfdam/"
+    }
+  ],
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "~4.0.0"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/jacksonfdam/targettrust-nodejs"
+    }
+  ],
+  "homepage": "https://github.com/jacksonfdam/targettrust-nodejs"
+}
