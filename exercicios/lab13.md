@@ -1,4 +1,4 @@
-### <i class="icon-file"></i>Lab 99
+### <i class="icon-file"></i>Lab 13
 
 #### <i class="icon-hdd"></i>  index.js
 
@@ -65,7 +65,7 @@
         "dependencies": {
             "body-parser": "^1.17.2",
             "express": "^4.15.3"
-        }
+            }
         }
 
 
