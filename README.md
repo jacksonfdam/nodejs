@@ -1,5 +1,5 @@
 
-![Targettrust](http://www.targettrust.com.br/img/header-logo_v2.png)
+![Targettrust](https://targettrust.com.br/wp-content/themes/bones/library/images/logotipo.png)
 
 ![NodeJS](https://raw.githubusercontent.com/cerebrobr/adesivos/master/view/nodejs.png)
 
@@ -19,9 +19,9 @@
 
 ### Slides
 
-[Slides](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides.html#1)
+[Slides](https://cdn.rawgit.com/jacksonfdam/nodejs/master/slides.html#1)
 
-[Slides ES6](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-es6.html#1)
+[Slides ES6](https://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-es6.html#1)
 
-[Slides NOSQL](http://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-nosql.html#1)
+[Slides NOSQL](https://cdn.rawgit.com/jacksonfdam/nodejs/master/slides-nosql.html#1)
 
