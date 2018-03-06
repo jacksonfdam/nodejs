@@ -1,5 +1,5 @@
 
-![Targettrust](https://targettrust.com.br/wp-content/themes/bones/library/images/logotipo.png)
+![Targettrust](https://targettrust.com.br/wp-content/uploads/2018/02/TargetTrust.png)
 
 ![NodeJS](https://raw.githubusercontent.com/cerebrobr/adesivos/master/view/nodejs.png)
 
