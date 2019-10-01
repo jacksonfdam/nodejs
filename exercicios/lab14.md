@@ -22,31 +22,46 @@
 #### <i class="icon-hdd"></i>  app.html
 
         <!DOCTYPE html>
-        <meta name="robots" content="noindex">
-        <html>
-        <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>EXEMPLO CORS</title>
-        </head>
-        <body ng-app="estadosAPP">
-        <ul>
-            <li></li>
-        </ul>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <meta name="robots" content="noindex">
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>EXEMPLO CORS</title>
+    </head>
+    <body>
+        <style>
+        ul#estados {
+            list-style: none;
+        }
+        ul#estados li{
+            margin: 2%;
+        }
+    </style>
+    <ul id="estados">
+        <li></li>
+    </ul>
 
-        <script id="jsbin-javascript">
-            var estadosAPP = angular.module('estadosAPP',[]);
-            /*
-            CONTROLLER
-            $http
-            localhost:4000
-            ng-repeat -> estados
-
-            */
-        </script>
-        </body>
-        </html>
+    <script id="jsbin-javascript">
+        document.addEventListener('DOMContentLoaded',function(){
+            let req=new XMLHttpRequest();
+            req.open("GET",'http://localhost:4000/',true);
+            req.send();
+            req.onload=function(){
+                let html = '';
+                let json=JSON.parse(req.responseText);
+                json.map(function(estado){
+                    html += `<li>
+                        <img src="${estado.imagem}" title="${estado.titulo}"/>
+                        <strong>${estado.titulo}</strong>
+                        </li>`; 
+                })
+                document.querySelector('#estados').innerHTML=html;          
+            };
+        });
+    </script>
+    </body>
+    </html>
 
        
 
